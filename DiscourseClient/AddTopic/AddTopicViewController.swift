@@ -18,6 +18,15 @@ class AddTopicViewController: UIViewController {
 
         return textField
     }()
+    
+    lazy var textField2: UITextField = {
+        let textField2 = UITextField()
+        textField2.translatesAutoresizingMaskIntoConstraints = false
+        textField2.borderStyle = .line
+        textField2.placeholder = NSLocalizedString("Insert comment for the topic", comment: "")
+
+        return textField2
+    }()
 
     let viewModel: AddTopicViewModel
 
@@ -40,6 +49,14 @@ class AddTopicViewController: UIViewController {
             textField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             textField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16)
         ])
+        
+        view.addSubview(textField2)
+        
+        NSLayoutConstraint.activate([
+            textField2.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            textField2.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            textField2.topAnchor.constraint(equalTo: textField.safeAreaLayoutGuide.topAnchor, constant: 32)
+        ])
 
         let submitButton = UIButton(type: .system)
         submitButton.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +69,7 @@ class AddTopicViewController: UIViewController {
         NSLayoutConstraint.activate([
             submitButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             submitButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            submitButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 8)
+            submitButton.topAnchor.constraint(equalTo: textField2.bottomAnchor, constant: 8)
         ])
 
         let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "multiply"), style: .plain, target: self, action: #selector(cancelButtonTapped))
@@ -66,7 +83,8 @@ class AddTopicViewController: UIViewController {
 
     @objc fileprivate func submitButtonTapped() {
         guard let text = textField.text, !text.isEmpty else { return }
-        viewModel.submitButtonTapped(title: text)
+        guard let raw = textField2.text, !raw.isEmpty else { return }
+        viewModel.submitButtonTapped(title: text, raw: raw)
     }
 
     fileprivate func showErrorAddingTopicAlert() {

@@ -23,7 +23,7 @@ class AddTopicViewModel {
     weak var viewDelegate: AddTopicViewDelegate?
     weak var coordinatorDelegate: AddTopicCoordinatorDelegate?
     let dataManager: AddTopicDataManager
-
+    
     init(dataManager: AddTopicDataManager) {
         self.dataManager = dataManager
     }
@@ -32,20 +32,15 @@ class AddTopicViewModel {
         coordinatorDelegate?.addTopicCancelButtonTapped()
     }
 
-    func submitButtonTapped(title: String) {
-        /** TODO:
+    func submitButtonTapped(title: String, raw:String) {
+        /** DONE:
          Realizar la llamada addTopic sobre el dataManager.
          Si el resultado es success, avisar al coordinator
          Si la llamada falla, avisar al viewDelegate
          */
-        
-        
-        
-        let title = "Parece que va a se un gran día, dejémoslo así 18/03/2020"
-        let raw = "Parece que va a se un gran día, dejémoslo así 18/03/2020"
-        let createdAt = "2020-03-15"
+    
 
-        dataManager.addTopic(title: title, raw: raw, createdAt: createdAt) { result in
+        dataManager.addTopic(title: title, raw: raw, createdAt: "") { result in
             switch result {
             case .success(let response):
                 self.coordinatorDelegate?.topicSuccessfullyAdded()

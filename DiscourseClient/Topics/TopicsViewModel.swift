@@ -32,11 +32,30 @@ class TopicsViewModel {
     }
 
     func viewWasLoaded() {
-        /** TODO:
+        /** DONE:
          Recuperar el listado de latest topics del dataManager
          Asignar el resultado a la lista de viewModels (que representan celdas de la interfaz
          Avisar a la vista de que ya tenemos topics listos para pintar
          */
+        
+        topicsDataManager.fetchAllTopics { result in
+            switch result {
+            case .success(let response):
+                let responseArray = [response.topic_list.topics]
+                for item in responseArray {
+                    for topicObject in item {
+                        self.topicViewModels.append(TopicCellViewModel(topic: topicObject))
+                        print(topicObject.title)
+                    }
+                }
+                self.viewDelegate?.topicsFetched()
+                break
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        
     }
 
     func numberOfSections() -> Int {
