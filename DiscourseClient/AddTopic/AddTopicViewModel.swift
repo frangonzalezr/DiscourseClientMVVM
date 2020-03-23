@@ -38,12 +38,11 @@ class AddTopicViewModel {
          Si el resultado es success, avisar al coordinator
          Si la llamada falla, avisar al viewDelegate
          */
-    
-
         dataManager.addTopic(title: title, raw: raw, createdAt: "") { result in
             switch result {
             case .success(let response):
                 self.coordinatorDelegate?.topicSuccessfullyAdded()
+                
                 print(response)
                 break
             case .failure(let error):

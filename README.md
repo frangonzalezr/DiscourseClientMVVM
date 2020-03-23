@@ -5,6 +5,6 @@ que nunca había trabajado con esta arquitectura.
 
 1.- Se muestra en una tabla el listado "Latest Topics"
 
-	Detalle del Topic:
+	Detalle del Topic: Al pulsar entra en el detalle.
 
 	Crear Topic: En el listado del Topic el Botón + He añadido un campo adicional para incluir el contenido de raw
