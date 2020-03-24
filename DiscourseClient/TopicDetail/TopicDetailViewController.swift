@@ -22,6 +22,12 @@ class TopicDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    lazy var labelTopicCount: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     lazy var topicIDStackView: UIStackView = {
         let labelTopicIDTitle = UILabel()
@@ -47,7 +53,19 @@ class TopicDetailViewController: UIViewController {
 
         return topicNameStackView
     }()
+    
+    lazy var topicCountStackView: UIStackView = {
+        let labelTopicCountTitle = UILabel()
+        labelTopicCountTitle.text = NSLocalizedString("Topic count: ", comment: "")
+        labelTopicCountTitle.translatesAutoresizingMaskIntoConstraints = false
 
+        let topicCountStackView = UIStackView(arrangedSubviews: [labelTopicCountTitle, labelTopicCount])
+        topicCountStackView.translatesAutoresizingMaskIntoConstraints = false
+        topicCountStackView.axis = .horizontal
+
+        return topicCountStackView
+    }()
+    
     let viewModel: TopicDetailViewModel
 
     init(viewModel: TopicDetailViewModel) {
@@ -74,10 +92,21 @@ class TopicDetailViewController: UIViewController {
             topicNameStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             topicNameStackView.topAnchor.constraint(equalTo: topicIDStackView.bottomAnchor, constant: 8)
         ])
+        
+        view.addSubview(topicCountStackView)
+        NSLayoutConstraint.activate([
+            topicCountStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            topicCountStackView.topAnchor.constraint(equalTo: topicNameStackView.bottomAnchor, constant: 8)
+        ])
+
 
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonTapped))
         leftBarButtonItem.tintColor = .black
         navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+        let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteButtonTapped))
+        rightBarButtonItem.tintColor = .black
+        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
 
     override func viewDidLoad() {
@@ -88,6 +117,10 @@ class TopicDetailViewController: UIViewController {
     @objc func backButtonTapped() {
         viewModel.backButtonTapped()
     }
+    
+    @objc func deleteButtonTapped() {
+        print("BORRAMOS EL TOPIC POR EL ID")
+    }
 
     fileprivate func showErrorFetchingTopicDetailAlert() {
         let alertMessage: String = NSLocalizedString("Error fetching topic detail\nPlease try again later", comment: "")
@@ -97,6 +130,7 @@ class TopicDetailViewController: UIViewController {
     fileprivate func updateUI() {
         labelTopicID.text = viewModel.labelTopicIDText
         labelTopicTitle.text = viewModel.labelTopicNameText
+        labelTopicCount.text = viewModel.labelTopicCountText
     }
 }
 

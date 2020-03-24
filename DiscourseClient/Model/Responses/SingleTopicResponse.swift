@@ -34,10 +34,6 @@ struct SingleTopicResponse: Codable {
     let pinned: Bool
     let pinned_at: String
     let pinned_until: String
-    
-    
-    
-    
     let details: Detail
     let highest_post_number: Int
     let deleted_by: String

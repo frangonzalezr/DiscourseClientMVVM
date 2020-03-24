@@ -22,6 +22,7 @@ protocol TopicDetailViewDelegate: class {
 class TopicDetailViewModel {
     var labelTopicIDText: String?
     var labelTopicNameText: String?
+    var labelTopicCountText: String?
 
     weak var viewDelegate: TopicDetailViewDelegate?
     weak var coordinatorDelegate: TopicDetailCoordinatorDelegate?

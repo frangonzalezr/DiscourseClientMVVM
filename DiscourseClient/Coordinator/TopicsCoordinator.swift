@@ -53,6 +53,7 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
         topicDetailViewController.title = NSLocalizedString("\(topic.title)", comment: "")
         topicDetailViewController.labelTopicID.text = "\(topic.id)"
         topicDetailViewController.labelTopicTitle.text = topic.title
+        topicDetailViewController.labelTopicCount.text = "\(topic.posts_count)"
         topicDetailViewModel.viewDelegate = topicDetailViewController
         topicDetailViewModel.coordinatorDelegate = self
         presenter.pushViewController(topicDetailViewController, animated: true)
