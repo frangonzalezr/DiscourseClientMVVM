@@ -47,6 +47,8 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
          Asignar "self" como coordinatorDelegate del módulo: Queremos escuchar eventos que requieren navegación desde ese módulo.
          Asignar el VC al viewDelegate del VM. De esta forma, el VC se enterará de lo necesario para pintar la UI
          Finalmente, lanzar el TopicDetailViewController sobre el presenter.
+         HABRIA QUE HACER ANTES UNA LLAMADA SINGLE TOPIC PARA SABER SI SE PUEDE BORRAR
+         FALTA LO DEL BOTON DELETE CONDICIONAL
          */
         let topicDetailViewModel = TopicDetailViewModel(topicID: topic.id, topicDetailDataManager: topicDetailDataManager)
         let topicDetailViewController = TopicDetailViewController(viewModel: topicDetailViewModel)
@@ -54,6 +56,29 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
         topicDetailViewController.labelTopicID.text = "\(topic.id)"
         topicDetailViewController.labelTopicTitle.text = topic.title
         topicDetailViewController.labelTopicCount.text = "\(topic.posts_count)"
+        
+        // PRIMERO HACEMOS UNA LLAMADA FETCH TOPIC
+        topicDetailDataManager.fetchTopic(id: topic.id) { (result) in
+                        switch result {
+            case .success(let response):
+                if (response.details.can_delete ?? false) {
+                    topicDetailViewController.rightBarButtonItem.isEnabled = true
+                    topicDetailViewController.rightBarButtonItem.tintColor = .black
+                    print("PODEMOS BORRAR")
+                } else {
+                    topicDetailViewController.rightBarButtonItem.isEnabled = false
+                    topicDetailViewController.rightBarButtonItem.tintColor = .clear
+                    print("NO PODEMOS BORRAR")
+                }
+                break
+            case .failure(let error):
+                print(error)
+            }
+
+        }
+
+        
+        
         topicDetailViewModel.viewDelegate = topicDetailViewController
         topicDetailViewModel.coordinatorDelegate = self
         presenter.pushViewController(topicDetailViewController, animated: true)
@@ -83,6 +108,12 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
 
 extension TopicsCoordinator: TopicDetailCoordinatorDelegate {
     func topicDetailBackButtonTapped() {
+        presenter.popViewController(animated: true)
+    }
+    
+    func topicDetailDeleteButtonTapped() {
+        print("BORRAMOS EL TOPIC POR EL ID")
+        // ANTES HAY QUE REPINTAR LA TABLA
         presenter.popViewController(animated: true)
     }
 }

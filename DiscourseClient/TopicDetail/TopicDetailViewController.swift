@@ -10,7 +10,9 @@ import UIKit
 
 /// ViewController que representa el detalle de un Topic
 class TopicDetailViewController: UIViewController {
-
+    
+    lazy var rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteButtonTapped))
+    
     lazy var labelTopicID: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -104,9 +106,12 @@ class TopicDetailViewController: UIViewController {
         leftBarButtonItem.tintColor = .black
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
-        let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(deleteButtonTapped))
-        rightBarButtonItem.tintColor = .black
+
+        
+        rightBarButtonItem.tintColor = .clear
         navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+
     }
 
     override func viewDidLoad() {
@@ -119,7 +124,7 @@ class TopicDetailViewController: UIViewController {
     }
     
     @objc func deleteButtonTapped() {
-        print("BORRAMOS EL TOPIC POR EL ID")
+        viewModel.deleteButtonTapped()
     }
 
     fileprivate func showErrorFetchingTopicDetailAlert() {
