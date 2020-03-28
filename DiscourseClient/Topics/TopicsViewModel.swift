@@ -32,13 +32,12 @@ class TopicsViewModel {
     }
 
     func fetchTopicList() {
-                topicsDataManager.fetchAllTopics { result in
+        topicsDataManager.fetchAllTopics { result in
             switch result {
             case .success(let response):
-                let responseArray = [response.topic_list.topics]
-                for item in responseArray {
-                    for topicObject in item {
-                        self.topicViewModels.append(TopicCellViewModel(topic: topicObject))
+                if let topicsArray = response?.topic_list.topics {
+                    for topic in topicsArray {
+                        self.topicViewModels.append(TopicCellViewModel(topic: topic))
                     }
                 }
                 self.viewDelegate?.topicsFetched()

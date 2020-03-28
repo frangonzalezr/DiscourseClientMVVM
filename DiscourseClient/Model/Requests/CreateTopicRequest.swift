@@ -8,7 +8,7 @@
 
 import Foundation
 
-// TODO: Implementar las propiedades de esta request
+// DONE: Implementar las propiedades de esta request
 struct CreateTopicRequest: APIRequest {
     
     typealias Response = AddNewTopicResponse

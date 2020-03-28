@@ -43,7 +43,7 @@ class AddTopicViewModel {
             case .success(let response):
                 self.coordinatorDelegate?.topicSuccessfullyAdded()
                 
-                print(response)
+                print(response as Any)
                 break
             case .failure(let error):
                 self.viewDelegate?.errorAddingTopic()

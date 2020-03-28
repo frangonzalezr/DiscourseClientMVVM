@@ -54,6 +54,7 @@ class AppCoordinator: Coordinator {
         tabBarController.viewControllers = [topicsNavigationController, categoriesNavigationController]
         tabBarController.tabBar.items?.first?.image = UIImage(systemName: "list.dash")
         tabBarController.tabBar.items?[1].image = UIImage(systemName: "tag")
+        //tabBarController.tabBar.items?[2].image = UIImage(systemName: "person.3")
 
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

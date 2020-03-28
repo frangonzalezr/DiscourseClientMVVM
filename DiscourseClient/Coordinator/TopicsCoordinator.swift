@@ -16,11 +16,11 @@ class TopicsCoordinator: Coordinator {
     let topicDetailDataManager: TopicDetailDataManager
     let addTopicDataManager: AddTopicDataManager
     var topicsViewModel: TopicsViewModel?
+    var topicID:Int?
 
     init(presenter: UINavigationController, topicsDataManager: TopicsDataManager,
          topicDetailDataManager: TopicDetailDataManager,
          addTopicDataManager: AddTopicDataManager) {
-
         self.presenter = presenter
         self.topicsDataManager = topicsDataManager
         self.topicDetailDataManager = topicDetailDataManager
@@ -47,8 +47,6 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
          Asignar "self" como coordinatorDelegate del módulo: Queremos escuchar eventos que requieren navegación desde ese módulo.
          Asignar el VC al viewDelegate del VM. De esta forma, el VC se enterará de lo necesario para pintar la UI
          Finalmente, lanzar el TopicDetailViewController sobre el presenter.
-         HABRIA QUE HACER ANTES UNA LLAMADA SINGLE TOPIC PARA SABER SI SE PUEDE BORRAR
-         FALTA LO DEL BOTON DELETE CONDICIONAL
          */
         let topicDetailViewModel = TopicDetailViewModel(topicID: topic.id, topicDetailDataManager: topicDetailDataManager)
         let topicDetailViewController = TopicDetailViewController(viewModel: topicDetailViewModel)
@@ -57,17 +55,18 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
         topicDetailViewController.labelTopicTitle.text = topic.title
         topicDetailViewController.labelTopicCount.text = "\(topic.posts_count)"
         
-        // PRIMERO HACEMOS UNA LLAMADA FETCH TOPIC
+        // PRIMERO HACEMOS UNA LLAMADA FETCH SINGLE TOPIC
         topicDetailDataManager.fetchTopic(id: topic.id) { (result) in
                         switch result {
             case .success(let response):
-                if (response.details.can_delete ?? false) {
+                if (response?.details.can_delete ?? false) {
                     topicDetailViewController.rightBarButtonItem.isEnabled = true
-                    topicDetailViewController.rightBarButtonItem.tintColor = .black
+                    topicDetailViewController.rightBarButtonItem.tintColor = .green
                     print("PODEMOS BORRAR")
+                    self.topicID = topic.id
                 } else {
-                    topicDetailViewController.rightBarButtonItem.isEnabled = false
-                    topicDetailViewController.rightBarButtonItem.tintColor = .clear
+                    topicDetailViewController.rightBarButtonItem.isEnabled = true
+                    topicDetailViewController.rightBarButtonItem.tintColor = .red
                     print("NO PODEMOS BORRAR")
                 }
                 break
@@ -112,8 +111,22 @@ extension TopicsCoordinator: TopicDetailCoordinatorDelegate {
     }
     
     func topicDetailDeleteButtonTapped() {
-        print("BORRAMOS EL TOPIC POR EL ID")
-        // ANTES HAY QUE REPINTAR LA TABLA
-        presenter.popViewController(animated: true)
+
+        topicDetailDataManager.deleteTopic(id: topicID ?? 0) { (result) in
+            switch result {
+            case .success(let response):
+                    print("BORRAMOS EL TOPIC POR EL ID")
+                    print(response ?? "NO HA DEVUELTO NADA, TRANQUILO")
+                    // QUEDA SACAR UN ALERT
+                    
+                    break
+                case .failure(let error):
+                    // QUEDA SACAR UN ALERT
+                    print("EL ERROR ES: \(error)")
+                }
+                self.presenter.popViewController(animated: true)
+        }
+        
+
     }
 }
