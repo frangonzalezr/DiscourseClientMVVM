@@ -9,18 +9,25 @@
 import UIKit
 
 /// Coordinator que representa el tab del categories list
-class CategoriesCoordinator: Coordinator {
+class CategoriesCoordinator: Coordinator, CategoriesCoordinatorDelegate {
     let presenter: UINavigationController
+    let categoriesDataManager: CategoriesDataManager
+    var categoriesViewModel: CategoriesViewModel?
 
-    init(presenter: UINavigationController) {
+    init(presenter: UINavigationController, categoriesDataManager: CategoriesDataManager) {
         self.presenter = presenter
+        self.categoriesDataManager = categoriesDataManager
     }
-
+    
     override func start() {
-        let categoriesViewModel = CategoriesViewModel()
+        let categoriesViewModel = CategoriesViewModel(categoriesDataManager: categoriesDataManager)
         let categoriesViewController = CategoriesViewController(viewModel: categoriesViewModel)
         categoriesViewController.title = NSLocalizedString("Categories", comment: "")
+        categoriesViewModel.viewDelegate = categoriesViewController
+        categoriesViewModel.coordinatorDelegate = self
+        self.categoriesViewModel = categoriesViewModel
         presenter.pushViewController(categoriesViewController, animated: false)
+
     }
     
     override func finish() {}

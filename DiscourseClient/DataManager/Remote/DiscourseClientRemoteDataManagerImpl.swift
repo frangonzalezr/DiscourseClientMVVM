@@ -24,6 +24,13 @@ class DiscourseClientRemoteDataManagerImpl: DiscourseClientRemoteDataManager {
         }
     }
 
+    func fetchAllCategories(completion: @escaping (Result<CategoriesResponse?, Error>) -> ()) {
+        let request = CategoriesRequest()
+        session.send(request: request) { result in
+            completion(result)
+        }
+    }
+    
     func fetchTopic(id: Int, completion: @escaping (Result<SingleTopicResponse?, Error>) -> ()) {
         let request = SingleTopicRequest(id: id)
         session.send(request: request) { result in
