@@ -54,12 +54,12 @@ class AppCoordinator: Coordinator {
         addChildCoordinator(usersCoordinator)
         usersCoordinator.start()
         
-        tabBarController.tabBar.tintColor = .black
+        tabBarController.tabBar.tintColor = .green
 
         tabBarController.viewControllers = [topicsNavigationController, categoriesNavigationController, usersNavigationController]
         tabBarController.tabBar.items?.first?.image = UIImage(systemName: "list.dash")
         tabBarController.tabBar.items?[1].image = UIImage(systemName: "tag")
-        tabBarController.tabBar.items?[2].image = UIImage(systemName: "person.3")
+        tabBarController.tabBar.items?[2].image = UIImage(named: "person.green")
 
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
