@@ -56,9 +56,3 @@ struct Poster: Codable {
     let user_id: Int
     let primary_group_id: Int?
 }
-
-struct User: Codable {
-    let id: Int
-    let username: String
-    let avatar_template: String
-}
