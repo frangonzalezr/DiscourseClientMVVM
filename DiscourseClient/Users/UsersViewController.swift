@@ -73,6 +73,7 @@ extension UsersViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserCell,
             let cellViewModel = viewModel.viewModel(at: indexPath) {
             cell.viewModel = cellViewModel
+            cell.setNeedsLayout()
             return cell
         }
 

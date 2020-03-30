@@ -21,12 +21,13 @@ protocol UsersViewDelegate: class {
 /// ViewModel representando un listado de usuarios
 class UsersViewModel {
     
-    let usersDataManager: TopicsDataManager  // USO EL MISMO PORQUE YA NOS DA LOS DATOS DE LOS USUARIOS
+//    let usersDataManager: TopicsDataManager  // USO EL MISMO PORQUE YA NOS DA LOS DATOS DE LOS USUARIOS
+    let usersDataManager: UsersDataManager
     weak var coordinatorDelegate: UsersCoordinatorDelegate?
     weak var viewDelegate: UsersViewDelegate?
     var userViewModels: [UserCellViewModel] = []
     
-    init(usersDataManager: TopicsDataManager) {
+    init(usersDataManager: UsersDataManager) {
         self.usersDataManager = usersDataManager
     }
     
@@ -36,12 +37,12 @@ class UsersViewModel {
     }
     
     func fetchUserList() {
-        usersDataManager.fetchAllTopics { result in
+        usersDataManager.fetchAllUsers{ result in
             switch result {
             case .success(let response):
-                if let usersArray = response?.users {
-                    for user in usersArray {
-                        self.userViewModels.append(UserCellViewModel(user: user))
+                if let itemsArray = response?.directory_items {
+                    for item in itemsArray {
+                        self.userViewModels.append(UserCellViewModel(user: item.user))
                     }
                 }
                 self.viewDelegate?.usersFetched()
@@ -50,6 +51,21 @@ class UsersViewModel {
                 print(error)
             }
         }
+        // SI LOS QUISIERA SACAR DEL LISTADO DE TOPICS
+//        usersDataManager.fetchAllTopics { result in
+//            switch result {
+//            case .success(let response):
+//                if let usersArray = response?.users {
+//                    for user in usersArray {
+//                        self.userViewModels.append(UserCellViewModel(user: user))
+//                    }
+//                }
+//                self.viewDelegate?.usersFetched()
+//                break
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
     
     func numberOfSections() -> Int {

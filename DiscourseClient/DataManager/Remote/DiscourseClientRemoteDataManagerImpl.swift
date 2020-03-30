@@ -11,6 +11,7 @@ import Foundation
 /// Implementación por defecto del protocolo remoto, en este caso usando SessionAPI
 class DiscourseClientRemoteDataManagerImpl: DiscourseClientRemoteDataManager {
     
+    
     let session: SessionAPI
 
     init(session: SessionAPI) {
@@ -19,48 +20,51 @@ class DiscourseClientRemoteDataManagerImpl: DiscourseClientRemoteDataManager {
 
     func fetchAllTopics(completion: @escaping (Result<LatestTopicsResponse?, Error>) -> ()) {
         let request = LatestTopicsRequest()
-        DispatchQueue.main.async {
-            self.session.send(request: request) { result in
-                completion(result)
-            }
+        self.session.send(request: request) { result in
+            completion(result)
+        }
+    }
+    
+    func fetchAllUsers(completion: @escaping (Result<UsersResponse?, Error>) -> ()) {
+        let request = UsersRequest(period: "all", order: "topic_count")
+        self.session.send(request: request) { result in
+            completion(result)
         }
     }
     
     func fetchAllCategories(completion: @escaping (Result<CategoriesResponse?, Error>) -> ()) {
         let request = CategoriesRequest()
-        DispatchQueue.main.async {
-            self.session.send(request: request) { result in
-                completion(result)
-            }
+        self.session.send(request: request) { result in
+            completion(result)
         }
     }
     
     func fetchTopic(id: Int, completion: @escaping (Result<SingleTopicResponse?, Error>) -> ()) {
         let request = SingleTopicRequest(id: id)
-        DispatchQueue.main.async {
-            self.session.send(request: request) { result in
-                completion(result)
-            }
+        self.session.send(request: request) { result in
+            completion(result)
         }
     }
     
     func deleteTopic(id: Int, completion: @escaping (Result<DeleteTopicResponse?, Error>) -> ()) {
         let request = DeleteTopicRequest(id: id)
-        DispatchQueue.main.async {
-            self.session.send(request: request) { result in
-                completion(result)
-            }
+        self.session.send(request: request) { result in
+            completion(result)
         }
     }
 
     func addTopic(title: String, raw: String, createdAt: String, completion: @escaping (Result<AddNewTopicResponse?, Error>) -> ()) {
         let request = CreateTopicRequest(title: title, raw: raw, createdAt: createdAt)
-        DispatchQueue.main.async {
-            self.session.send(request: request) { result in
-                completion(result)
-            }
+        self.session.send(request: request) { result in
+            completion(result)
         }
-
+    }
+    
+    func fetchUser(name: String, completion: @escaping (Result<SingleUserResponse?, Error>) -> ()) {
+        let request = SingleUserRequest(name: name)
+        self.session.send(request: request) { result in
+            completion(result)
+        }
     }
 }
 

@@ -44,15 +44,17 @@ class AppCoordinator: Coordinator {
         addChildCoordinator(topicsCoordinator)
         topicsCoordinator.start()
 
+        
+        let usersNavigationController = UINavigationController()
+        let usersCoordinator = UsersCoordinator(presenter: usersNavigationController, usersDataManager: dataManager)
+        addChildCoordinator(usersCoordinator)
+        usersCoordinator.start()
+        
         let categoriesNavigationController = UINavigationController()
         let categoriesCoordinator = CategoriesCoordinator(presenter: categoriesNavigationController, categoriesDataManager: dataManager)
         addChildCoordinator(categoriesCoordinator)
         categoriesCoordinator.start()
 
-        let usersNavigationController = UINavigationController()
-        let usersCoordinator = UsersCoordinator(presenter: usersNavigationController, usersDataManager: dataManager)
-        addChildCoordinator(usersCoordinator)
-        usersCoordinator.start()
         
         tabBarController.tabBar.tintColor = .green
 

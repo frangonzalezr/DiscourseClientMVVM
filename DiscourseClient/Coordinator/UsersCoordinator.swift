@@ -11,10 +11,10 @@ import UIKit
 /// Coordinator que representa el tab del users list
 class UsersCoordinator: Coordinator, UsersCoordinatorDelegate {
     let presenter: UINavigationController
-    let usersDataManager: TopicsDataManager  // UTILIZO EL MISMO DE MOMENTO
+    let usersDataManager: UsersDataManager
     var usersViewModel: UsersViewModel?
 
-    init(presenter: UINavigationController, usersDataManager: TopicsDataManager) {
+    init(presenter: UINavigationController, usersDataManager: UsersDataManager) {
         self.presenter = presenter
         self.usersDataManager = usersDataManager
     }

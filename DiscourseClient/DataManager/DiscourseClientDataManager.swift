@@ -37,6 +37,18 @@ extension DiscourseClientDataManager: TopicDetailDataManager {
     }
 }
 
+extension DiscourseClientDataManager: UsersDataManager {
+    func fetchAllUsers(completion: @escaping (Result<UsersResponse?, Error>) -> ()) {
+        remoteDataManager.fetchAllUsers(completion: completion)
+    }
+}
+
+extension DiscourseClientDataManager: UserDetailDataManager {
+    func fetchUser(name: String, completion: @escaping (Result<SingleUserResponse?, Error>) -> ()) {
+        remoteDataManager.fetchUser(name: name, completion: completion)
+    }
+}
+
 extension DiscourseClientDataManager: AddTopicDataManager {
     func addTopic(title: String, raw: String, createdAt: String, completion: @escaping (Result<AddNewTopicResponse?, Error>) -> ()) {
         remoteDataManager.addTopic(title: title, raw: raw, createdAt: createdAt, completion: completion)
