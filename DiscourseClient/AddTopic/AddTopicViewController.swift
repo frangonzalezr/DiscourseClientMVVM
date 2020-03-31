@@ -90,7 +90,7 @@ class AddTopicViewController: UIViewController {
     fileprivate func showErrorAddingTopicAlert(error: Error) {
         if case let SessionAPIError.apiError(finalAPIError) = error {
             let action = finalAPIError.action ?? "No action"
-            let errors = finalAPIError.errors?.joined(separator: ", ") ?? "No error"
+            let errors = finalAPIError.errors?.joined(separator: ", ") ?? "No error description"
             let message = NSLocalizedString("\(action) error: \(errors)" , comment:"")
             showAlert(message)
         }

@@ -9,12 +9,13 @@
 import Foundation
 
 struct SingleUserResponse: Codable {
-    let users: [User]
+    let user: UserDetails
 }
 
-struct User: Codable {
+struct UserDetails: Codable {
     let id: Int
     let username: String
     let name: String?
     let avatar_template: String
+    let can_edit_name: Bool
 }

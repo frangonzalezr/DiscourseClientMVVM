@@ -13,10 +13,10 @@ struct SingleUserRequest: APIRequest {
     
     typealias Response = SingleUserResponse
     
-    let name: String
+    let username: String
     
-    init(name: String) {
-        self.name = name
+    init(username: String) {
+        self.username = username
     }
     
     var method: Method {
@@ -24,7 +24,7 @@ struct SingleUserRequest: APIRequest {
     }
     
     var path: String {
-        return "/users/\(name).json"
+        return "/users/\(username).json"
     }
     
     var parameters: [String : String] {

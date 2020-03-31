@@ -28,9 +28,11 @@ class UserDetailViewModel {
     weak var coordinatorDelegate: UserDetailCoordinatorDelegate?
     let userDetailDataManager: UserDetailDataManager
     let userID: Int
+    let canEditName: Bool
     
-    init(userID: Int, userDetailDataManager: UserDetailDataManager) {
+    init(userID: Int, canEditName: Bool, userDetailDataManager: UserDetailDataManager) {
         self.userID = userID
+        self.canEditName = canEditName
         self.userDetailDataManager = userDetailDataManager
     }
     

@@ -22,6 +22,12 @@ class UserDetailViewController: UIViewController {
         return label
     }()
     
+    lazy var textUserName: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
     lazy var userIDStackView: UIStackView = {
         let labelUserIDTitle = UILabel()
         labelUserIDTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -39,13 +45,26 @@ class UserDetailViewController: UIViewController {
         let labelUserNameTitle = UILabel()
         labelUserNameTitle.translatesAutoresizingMaskIntoConstraints = false
         labelUserNameTitle.text = NSLocalizedString("User Name: ", comment: "")
-        labelUserNameTitle.textColor = .black
+        labelUserNameTitle.textColor = .red
 
         let userNameStackView = UIStackView(arrangedSubviews: [labelUserNameTitle, labelUserName])
         userNameStackView.translatesAutoresizingMaskIntoConstraints = false
         userNameStackView.axis = .horizontal
 
         return userNameStackView
+    }()
+    
+    lazy var userNameEditStackView: UIStackView = {
+        let labelUserEditNameTitle = UITextField()
+        labelUserEditNameTitle.translatesAutoresizingMaskIntoConstraints = false
+        labelUserEditNameTitle.text = NSLocalizedString("User Name: ", comment: "")
+        labelUserEditNameTitle.textColor = .green
+
+        let userNameEditStackView = UIStackView(arrangedSubviews: [labelUserEditNameTitle, textUserName])
+        userNameEditStackView.translatesAutoresizingMaskIntoConstraints = false
+        userNameEditStackView.axis = .horizontal
+
+        return userNameEditStackView
     }()
     
     let viewModel: UserDetailViewModel
@@ -69,10 +88,17 @@ class UserDetailViewController: UIViewController {
             userIDStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16)
         ])
         
+        
         view.addSubview(userNameStackView)
         NSLayoutConstraint.activate([
             userNameStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             userNameStackView.topAnchor.constraint(equalTo: userIDStackView.topAnchor, constant: 16)
+        ])
+        
+        view.addSubview(userNameEditStackView)
+        NSLayoutConstraint.activate([
+            userNameEditStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            userNameEditStackView.topAnchor.constraint(equalTo: userIDStackView.topAnchor, constant: 16)
         ])
         
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonTapped))
@@ -104,7 +130,12 @@ class UserDetailViewController: UIViewController {
 
 extension UserDetailViewController: UserDetailViewDelegate {
     func userDetailFetched() {
-        updateUI()
+        if viewModel.canEditName {
+            
+        } else {
+            
+        }
+        self.updateUI()
     }
 
     func errorFetchingUserDetail() {

@@ -27,3 +27,9 @@ struct Directory_Item: Codable {
     let user: User
 }
 
+struct User: Codable {
+    let id: Int
+    let username: String
+    let name: String?
+    let avatar_template: String
+}
