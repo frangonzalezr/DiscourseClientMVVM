@@ -48,10 +48,12 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate {
                 if ((response?.user.can_edit_name) != nil && response?.user.can_edit_name == true) {
                     userDetailViewController.userNameStackView.isHidden = true
                     userDetailViewController.userNameEditStackView.isHidden = false
+                    userDetailViewController.userNameButtonStackView.isHidden = false
                     print("PODEMOS CAMBIAR EL NOMBRE")
                 } else {
                     userDetailViewController.userNameStackView.isHidden = false
                     userDetailViewController.userNameEditStackView.isHidden = true
+                    userDetailViewController.userNameButtonStackView.isHidden = true
                     print("NO PODEMOS CAMBIAR EL NOMBRE")
                 }
                 break

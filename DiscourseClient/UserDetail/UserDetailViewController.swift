@@ -28,6 +28,12 @@ class UserDetailViewController: UIViewController {
         return textField
     }()
     
+    lazy var buttonUserName: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     lazy var userIDStackView: UIStackView = {
         let labelUserIDTitle = UILabel()
         labelUserIDTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +73,23 @@ class UserDetailViewController: UIViewController {
         return userNameEditStackView
     }()
     
+    lazy var userNameButtonStackView: UIStackView = {
+        let userNameButton = UIButton()
+        userNameButton.translatesAutoresizingMaskIntoConstraints = false
+        userNameButton.setTitle(NSLocalizedString("Update Name", comment: ""), for: .normal)
+        userNameButton.setTitleColor(.green, for: .normal)
+        userNameButton.addTarget(self, action: #selector(updateButtonTapped(sender:)), for: .touchUpInside)
+
+        let userNameButtonStackView = UIStackView(arrangedSubviews: [userNameButton, buttonUserName])
+        userNameButtonStackView.translatesAutoresizingMaskIntoConstraints = false
+        userNameButtonStackView.axis = .horizontal
+        userNameButtonStackView.distribution = .fillEqually
+        userNameButtonStackView.alignment = .fill
+        userNameButtonStackView.spacing   = 5
+
+        return userNameButtonStackView
+    }()
+    
     let viewModel: UserDetailViewModel
     
     init(viewModel: UserDetailViewModel) {
@@ -101,6 +124,13 @@ class UserDetailViewController: UIViewController {
             userNameEditStackView.topAnchor.constraint(equalTo: userIDStackView.topAnchor, constant: 16)
         ])
         
+        view.addSubview(userNameButtonStackView)
+        NSLayoutConstraint.activate([
+            userNameButtonStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            userNameButtonStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            userNameButtonStackView.topAnchor.constraint(equalTo: userNameEditStackView.topAnchor, constant: 16)
+        ])
+        
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonTapped))
         leftBarButtonItem.tintColor = .black
         navigationItem.leftBarButtonItem = leftBarButtonItem
@@ -114,6 +144,10 @@ class UserDetailViewController: UIViewController {
     
     @objc func backButtonTapped() {
         viewModel.backButtonTapped()
+       }
+    
+    @objc func updateButtonTapped(sender: UIButton!) {
+        viewModel.editButtonTapped()
        }
     
     fileprivate func showErrorFetchingUserDetailAlert() {

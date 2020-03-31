@@ -43,5 +43,9 @@ class UserDetailViewModel {
     func backButtonTapped() {
         coordinatorDelegate?.userDetailBackButtonTapped()
     }
+    
+    func editButtonTapped() {
+        print("ACTUALIZAMOS EL NOMBRE")
+    }
 
 }
