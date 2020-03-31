@@ -9,7 +9,7 @@
 import Foundation
 // Delegate a través del cual nos vamos a comunicar con el coordinator, contándole todo aquello que atañe a la navegación
 protocol UsersCoordinatorDelegate: class {
-
+    func didSelect(user: User)
 }
 
 // Delegate a través del cual vamos a comunicar a la vista eventos que requiran pintar el UI, pasándole aquellos datos que necesita
@@ -51,21 +51,11 @@ class UsersViewModel {
                 print(error)
             }
         }
-        // SI LOS QUISIERA SACAR DEL LISTADO DE TOPICS
-//        usersDataManager.fetchAllTopics { result in
-//            switch result {
-//            case .success(let response):
-//                if let usersArray = response?.users {
-//                    for user in usersArray {
-//                        self.userViewModels.append(UserCellViewModel(user: user))
-//                    }
-//                }
-//                self.viewDelegate?.usersFetched()
-//                break
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
+    }
+    
+    func didSelectRow(at indexPath: IndexPath) {
+        guard indexPath.row < userViewModels.count else { return }
+        coordinatorDelegate?.didSelect(user: userViewModels[indexPath.row].user)
     }
     
     func numberOfSections() -> Int {

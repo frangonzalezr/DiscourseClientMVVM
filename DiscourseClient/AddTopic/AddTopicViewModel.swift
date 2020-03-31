@@ -16,7 +16,7 @@ protocol AddTopicCoordinatorDelegate: class {
 
 /// Delegate para comunicar a la vista aspectos relacionados con UI
 protocol AddTopicViewDelegate: class {
-    func errorAddingTopic()
+    func errorAddingTopic(error: Error)
 }
 
 class AddTopicViewModel {
@@ -46,7 +46,7 @@ class AddTopicViewModel {
                 print(response as Any)
                 break
             case .failure(let error):
-                self.viewDelegate?.errorAddingTopic()
+                self.viewDelegate?.errorAddingTopic(error: error)
                 print(error)
             }
         }
