@@ -147,7 +147,8 @@ class UserDetailViewController: UIViewController {
        }
     
     @objc func updateButtonTapped(sender: UIButton!) {
-        viewModel.editButtonTapped()
+        print("VAMOS A ACTUALIZAR EL NOMBRE \(textUserName.text ?? "DE NADIE")")
+        viewModel.editButtonTapped(newName: textUserName.text ?? "")
        }
     
     fileprivate func showErrorFetchingUserDetailAlert() {

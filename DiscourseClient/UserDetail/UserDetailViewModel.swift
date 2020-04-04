@@ -12,6 +12,7 @@ import Foundation
 /// Delegate que usaremos para comunicar eventos relativos a navegación, al coordinator correspondiente
 protocol UserDetailCoordinatorDelegate: class {
     func userDetailBackButtonTapped()
+    func userDetailEditButtonTapped(newName: String)
 }
 /// Delegate para comunicar a la vista cosas relacionadas con UI
 protocol UserDetailViewDelegate: class {
@@ -44,8 +45,8 @@ class UserDetailViewModel {
         coordinatorDelegate?.userDetailBackButtonTapped()
     }
     
-    func editButtonTapped() {
-        print("ACTUALIZAMOS EL NOMBRE")
+    func editButtonTapped(newName: String) {
+        coordinatorDelegate?.userDetailEditButtonTapped(newName: newName)
     }
 
 }

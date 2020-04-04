@@ -44,6 +44,8 @@
 		62A697A323E89BD600CCEA3E /* LatestTopicsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A697A223E89BD600CCEA3E /* LatestTopicsRequest.swift */; };
 		62A697A623E89C2200CCEA3E /* LatestTopicsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A697A523E89C2200CCEA3E /* LatestTopicsResponse.swift */; };
 		62A697A823E89E6700CCEA3E /* DiscourseClientLocalDataManagerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A697A723E89E6700CCEA3E /* DiscourseClientLocalDataManagerImpl.swift */; };
+		A1BC535B243511D1003D677F /* ChangeUserNameRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BC535A243511D1003D677F /* ChangeUserNameRequest.swift */; };
+		A1BC535D24351492003D677F /* ChangeUserNameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BC535C24351492003D677F /* ChangeUserNameResponse.swift */; };
 		A1C7776B2431EEA300EB431C /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C7776A2431EEA300EB431C /* UserDetailViewModel.swift */; };
 		A1C7776D2431EEBA00EB431C /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C7776C2431EEBA00EB431C /* UserDetailViewController.swift */; };
 		A1C7776F2431EED300EB431C /* UserDetailDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C7776E2431EED300EB431C /* UserDetailDataManager.swift */; };
@@ -109,6 +111,8 @@
 		62A697A223E89BD600CCEA3E /* LatestTopicsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestTopicsRequest.swift; sourceTree = "<group>"; };
 		62A697A523E89C2200CCEA3E /* LatestTopicsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestTopicsResponse.swift; sourceTree = "<group>"; };
 		62A697A723E89E6700CCEA3E /* DiscourseClientLocalDataManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscourseClientLocalDataManagerImpl.swift; sourceTree = "<group>"; };
+		A1BC535A243511D1003D677F /* ChangeUserNameRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameRequest.swift; sourceTree = "<group>"; };
+		A1BC535C24351492003D677F /* ChangeUserNameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameResponse.swift; sourceTree = "<group>"; };
 		A1C7776A2431EEA300EB431C /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
 		A1C7776C2431EEBA00EB431C /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		A1C7776E2431EED300EB431C /* UserDetailDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailDataManager.swift; sourceTree = "<group>"; };
@@ -299,6 +303,7 @@
 				A1E0E69C242FFC91005A557E /* CategoriesRequest.swift */,
 				A1C777722431FAAE00EB431C /* SingleUserRequest.swift */,
 				A1C777742431FCA000EB431C /* UsersRequest.swift */,
+				A1BC535A243511D1003D677F /* ChangeUserNameRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 				A1E0E69A242FFAFF005A557E /* CategoriesResponse.swift */,
 				A1C777702431FA2F00EB431C /* SingleUserResponse.swift */,
 				A1C777762431FE4500EB431C /* UsersResponse.swift */,
+				A1BC535C24351492003D677F /* ChangeUserNameResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -419,6 +425,7 @@
 				A1E0E695242FF267005A557E /* UsersViewModel.swift in Sources */,
 				627DC5BE23E5F7A0006D8615 /* Coordinator.swift in Sources */,
 				627DC5C323E5FEE4006D8615 /* TopicsViewModel.swift in Sources */,
+				A1BC535B243511D1003D677F /* ChangeUserNameRequest.swift in Sources */,
 				62015CC023EF0F8100673EBB /* TopicDetailViewModel.swift in Sources */,
 				62015CC823EF162D00673EBB /* SingleTopicResponse.swift in Sources */,
 				62015CC423EF14FC00673EBB /* TopicDetailDataManager.swift in Sources */,
@@ -440,6 +447,7 @@
 				62015CD823EF26C900673EBB /* AddTopicCoordinator.swift in Sources */,
 				62015CD423EF21A900673EBB /* AddNewTopicResponse.swift in Sources */,
 				62015CC623EF161E00673EBB /* SingleTopicRequest.swift in Sources */,
+				A1BC535D24351492003D677F /* ChangeUserNameResponse.swift in Sources */,
 				A1C7776B2431EEA300EB431C /* UserDetailViewModel.swift in Sources */,
 				A1E0E6A724311088005A557E /* UserCellViewModel.swift in Sources */,
 				62015CCE23EF1F5200673EBB /* AddTopicViewModel.swift in Sources */,

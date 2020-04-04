@@ -24,7 +24,10 @@ final class SessionAPI {
         let task = session.dataTask(with: request) { data, response, error in
             // Early exit si la respuesta tiene código de error
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode >= 400 && httpResponse.statusCode < 500 {
+                // LUEGO PUEDO BORRAR ESTO
                 if let data = data {
+                    let str = String(decoding: data, as: UTF8.self)
+                    print(str)
                     do {
                         let model = try JSONDecoder().decode(ApiError.self, from: data)
                         DispatchQueue.main.async {

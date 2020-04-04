@@ -1,17 +1,18 @@
 //
-//  SingleUserRequest.swift
+//  ChangeUserNameRequest.swift
 //  DiscourseClient
 //
-//  Created by Fran González on 30/03/2020.
+//  Created by Fran González on 01/04/2020.
 //  Copyright © 2020 Roberto Garrido. All rights reserved.
 //
 
 import Foundation
 
-
-struct SingleUserRequest: APIRequest {
+// DONE: Implementar las propiedades de esta request
+struct ChangeUserNameRequest: APIRequest {
     
-    typealias Response = SingleUserResponse
+    
+    typealias Response = ChangeUserNameResponse
     
     let user: User
     
@@ -20,7 +21,7 @@ struct SingleUserRequest: APIRequest {
     }
     
     var method: Method {
-        return .GET
+        return .PUT
     }
     
     var path: String {
@@ -32,7 +33,9 @@ struct SingleUserRequest: APIRequest {
     }
     
     var body: [String : Any] {
-        return [:]
+        guard let name = user.name else { return ["name": ""]}
+        let bodyJSON: [String: Any] = ["name": name]
+        return bodyJSON
     }
     
     var headers: [String : String] {

@@ -11,7 +11,7 @@ import UIKit
 
 /// ViewModel que representa un usuario en la lista
 class UserCellViewModel {
-    let user: User
+    var user: User
     var textLabelText: String?
     var avatar_image: UIImage
     

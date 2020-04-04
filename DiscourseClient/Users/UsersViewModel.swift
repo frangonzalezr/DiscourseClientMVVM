@@ -66,6 +66,11 @@ class UsersViewModel {
         return userViewModels.count
     }
     
+    func userNameChanged(){
+        self.userViewModels = []
+        self.fetchUserList()
+    }
+    
     func viewModel(at indexPath: IndexPath) -> UserCellViewModel? {
         guard indexPath.row < userViewModels.count else { return nil }
         return userViewModels[indexPath.row]

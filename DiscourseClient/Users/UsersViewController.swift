@@ -53,6 +53,10 @@ class UsersViewController: UIViewController {
         super.viewDidLoad()
         viewModel.viewWasLoaded()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        // RECARGO PARA QUE SE ACTUALICEN LOS DATOS CUANDO HE CAMBIADO EL NOMBRE. ESTO HAY QUE HACERLO MAS LIMPIO, SIN RECARGAR?
+        tableView.reloadData()
+    }
     
     fileprivate func showErrorFetchingUsersAlert() {
         let alertMessage: String = NSLocalizedString("Error fetching users\nPlease try again later", comment: "")
@@ -96,5 +100,4 @@ extension UsersViewController: UsersViewDelegate {
     func usersFetched() {
         tableView.reloadData()
     }
-
 }

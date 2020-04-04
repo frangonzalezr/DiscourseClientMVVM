@@ -10,5 +10,6 @@ import Foundation
 
 /// DataManager con las operaciones necesarias de este módulo
 protocol UserDetailDataManager: class {
-    func fetchUser(username: String, completion: @escaping (Result<SingleUserResponse?, Error>) -> ())
+    func fetchUser(user: User, completion: @escaping (Result<SingleUserResponse?, Error>) -> ())
+    func changeUserName(user:User, completion: @escaping (Result<ChangeUserNameResponse?, Error>) -> ())
 }

@@ -32,11 +32,11 @@ struct UsersRequest: APIRequest {
     }
     
     var parameters: [String : String] {
-        let body: [String: String] = [
+        let jsonParameters: [String: String] = [
           "period": period,
           "order": order
         ]
-        return body
+        return jsonParameters
     }
     
     var body: [String : Any] {

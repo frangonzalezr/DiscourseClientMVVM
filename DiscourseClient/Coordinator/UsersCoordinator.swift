@@ -9,7 +9,35 @@
 import UIKit
 
 /// Coordinator que representa el tab del users list
-class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate {
+class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordinatorDelegate {
+    
+    func userDetailEditButtonTapped(newName: String) {
+        // CAMBIAMOS name EN EL OBJETO DEL USUARIO SELECCIONADO
+        userSelected?.name = newName
+        print("ACTUALIZAMOS EL NOMBRE a \(userSelected?.name ?? "")")
+        
+        // ARREGLAR ESTA CHAPUZA
+        userDetailDataManager.changeUserName(user: userSelected!) { (result) in
+            switch result {
+            case .success(let response):
+                print("CAMBIAMOS EL NAME DEL USUARIO")
+                print(response ?? "NO HA DEVUELTO NADA, TRANQUILO")
+                // PERO TAMBIEN TENEMOS QUE CAMBIARLO EN EL ARRAY DE DONDE VIENE
+                if let userChanging = self.usersViewModel?.userViewModels.first(where: {$0.user.id == self.userSelected?.id}){
+                    print(userChanging.user.name ?? "")
+                    userChanging.user.name = newName
+                    print(userChanging.user.name ?? "")
+                    // PERO TAMBIEN PODRIA VOLVER A RECARGAR LOS USUARIOS ANTES DE VOLVER
+                    self.usersViewModel?.userNameChanged()
+                }
+                break
+            case .failure(let error):
+                print("EL ERROR DE CAMBIAR EL NOMBRE ES: \(error)")
+            }
+            self.presenter.popViewController(animated: true)
+        }
+    }
+    
     func userDetailBackButtonTapped() {
         presenter.popViewController(animated: true)
     }
@@ -18,6 +46,7 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate {
     let usersDataManager: UsersDataManager
     let userDetailDataManager: UserDetailDataManager
     var usersViewModel: UsersViewModel?
+    var userSelected: User?
 
     init(presenter: UINavigationController, usersDataManager: UsersDataManager, userDetailDataManager: UserDetailDataManager) {
         self.presenter = presenter
@@ -35,13 +64,14 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate {
          */
         let userDetailViewModel = UserDetailViewModel(userID: user.id, canEditName: true, userDetailDataManager: userDetailDataManager)
         let userDetailViewController = UserDetailViewController(viewModel: userDetailViewModel)
+        userSelected = user
         userDetailViewController.title = NSLocalizedString("\(user.username)", comment: "")
         print("SELECCIONAMOS EL USER \(user.username)")
         userDetailViewController.labelUserID.text = "\(user.id)"
         userDetailViewController.labelUserName.text = "\(user.name ?? "")"
         userDetailViewController.textUserName.text = "\(user.name ?? "")"
             //PRIMERO HACEMOS UNA LLAMADA FETCH SINGLE USER
-        userDetailDataManager.fetchUser(username: user.username) { (result) in
+        userDetailDataManager.fetchUser(user: user) { (result) in
             switch result {
             case .success(let response):
                 print(response ?? "NO HAY RESPUESTA")
@@ -65,7 +95,7 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate {
         userDetailViewModel.coordinatorDelegate = self
         presenter.pushViewController(userDetailViewController, animated: true)
     }
-    
+        
     override func start() {
         let usersViewModel = UsersViewModel(usersDataManager: usersDataManager)
         let usersViewController = UsersViewController(viewModel: usersViewModel)
@@ -77,8 +107,4 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate {
     }
     
     override func finish() {}
-}
-
-extension UsersCoordinator: UsersCoordinatorDelegate {
-
 }

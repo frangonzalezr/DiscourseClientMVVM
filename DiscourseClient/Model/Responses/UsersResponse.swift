@@ -30,6 +30,6 @@ struct Directory_Item: Codable {
 struct User: Codable {
     let id: Int
     let username: String
-    let name: String?
+    var name: String?
     let avatar_template: String
 }
