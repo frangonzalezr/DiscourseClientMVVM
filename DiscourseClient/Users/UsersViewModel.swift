@@ -67,8 +67,8 @@ class UsersViewModel {
     }
     
     func userNameChanged(){
-        self.userViewModels = []
-        self.fetchUserList()
+        // COMO SIMPLEMENTE TENEMOS QUE HACER UNA RECARGA DE LA TABLA, LLAMO DIRECTAMENTE A usersFetched()
+        self.viewDelegate?.usersFetched()
     }
     
     func viewModel(at indexPath: IndexPath) -> UserCellViewModel? {

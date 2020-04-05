@@ -14,25 +14,25 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
     func userDetailEditButtonTapped(newName: String) {
         // CAMBIAMOS name EN EL OBJETO DEL USUARIO SELECCIONADO
         userSelected?.name = newName
-        print("ACTUALIZAMOS EL NOMBRE a \(userSelected?.name ?? "")")
         
         // ARREGLAR ESTA CHAPUZA
         userDetailDataManager.changeUserName(user: userSelected!) { (result) in
             switch result {
             case .success(let response):
-                print("CAMBIAMOS EL NAME DEL USUARIO")
                 print(response ?? "NO HA DEVUELTO NADA, TRANQUILO")
                 // PERO TAMBIEN TENEMOS QUE CAMBIARLO EN EL ARRAY DE DONDE VIENE
                 if let userChanging = self.usersViewModel?.userViewModels.first(where: {$0.user.id == self.userSelected?.id}){
-                    print(userChanging.user.name ?? "")
+                    // CAMBIO LA ETIQUETA DEL USUARIO EN LA TABLA ANTES DE VOLVER
+                    userChanging.textLabelText = newName
+                    // Y TAMBIEN EL NOMBRE DEL USUARIO EN EL ARRAY
                     userChanging.user.name = newName
-                    print(userChanging.user.name ?? "")
-                    // PERO TAMBIEN PODRIA VOLVER A RECARGAR LOS USUARIOS ANTES DE VOLVER
+                    // Y AVISO AL VIEW MODEL DE QUE LO HEMOS CAMBIADO EN LA LLAMADA A LA API
+                    // Y ASI NI SIQUIERA NECESITO VOLVER A HACER LA LLAMADA
                     self.usersViewModel?.userNameChanged()
                 }
                 break
             case .failure(let error):
-                print("EL ERROR DE CAMBIAR EL NOMBRE ES: \(error)")
+                print("EL ERROR DE CAMBIAR EL NOMBRE DEL USUARIO ES: \(error)")
             }
             self.presenter.popViewController(animated: true)
         }
