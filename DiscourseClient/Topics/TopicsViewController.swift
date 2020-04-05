@@ -46,7 +46,7 @@ class TopicsViewController: UIViewController {
 
 
         let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(plusButtonTapped))
-        rightBarButtonItem.tintColor = .black
+        rightBarButtonItem.tintColor = .green
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
 

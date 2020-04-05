@@ -35,7 +35,7 @@ class TopicDetailViewController: UIViewController {
         let labelTopicIDTitle = UILabel()
         labelTopicIDTitle.translatesAutoresizingMaskIntoConstraints = false
         labelTopicIDTitle.text = NSLocalizedString("Topic ID: ", comment: "")
-        labelTopicIDTitle.textColor = .black
+        labelTopicIDTitle.textColor = .orange
 
         let topicIDStackView = UIStackView(arrangedSubviews: [labelTopicIDTitle, labelTopicID])
         topicIDStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -48,6 +48,7 @@ class TopicDetailViewController: UIViewController {
         let labelTopicTitleTitle = UILabel()
         labelTopicTitleTitle.text = NSLocalizedString("Topic name: ", comment: "")
         labelTopicTitleTitle.translatesAutoresizingMaskIntoConstraints = false
+        labelTopicTitleTitle.textColor = .orange
 
         let topicNameStackView = UIStackView(arrangedSubviews: [labelTopicTitleTitle, labelTopicTitle])
         topicNameStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +61,7 @@ class TopicDetailViewController: UIViewController {
         let labelTopicCountTitle = UILabel()
         labelTopicCountTitle.text = NSLocalizedString("Topic count: ", comment: "")
         labelTopicCountTitle.translatesAutoresizingMaskIntoConstraints = false
+        labelTopicCountTitle.textColor = .orange
 
         let topicCountStackView = UIStackView(arrangedSubviews: [labelTopicCountTitle, labelTopicCount])
         topicCountStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +83,7 @@ class TopicDetailViewController: UIViewController {
 
     override func loadView() {
         view = UIView()
-        view.backgroundColor = .white
+        
 
         view.addSubview(topicIDStackView)
         NSLayoutConstraint.activate([
@@ -103,7 +105,7 @@ class TopicDetailViewController: UIViewController {
 
 
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        leftBarButtonItem.tintColor = .black
+        leftBarButtonItem.tintColor = .green
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
 

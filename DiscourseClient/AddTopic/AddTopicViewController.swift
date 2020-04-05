@@ -40,8 +40,9 @@ class AddTopicViewController: UIViewController {
     }
 
     override func loadView() {
+        overrideUserInterfaceStyle = .dark
         view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .darkGray
 
         view.addSubview(textField)
         NSLayoutConstraint.activate([
@@ -61,7 +62,7 @@ class AddTopicViewController: UIViewController {
         let submitButton = UIButton(type: .system)
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         submitButton.setTitle(NSLocalizedString("Submit", comment: ""), for: .normal)
-        submitButton.backgroundColor = .cyan
+        submitButton.backgroundColor = .orange
         submitButton.setTitleColor(.white, for: .normal)
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
 

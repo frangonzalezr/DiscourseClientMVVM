@@ -35,7 +35,7 @@ class AppCoordinator: Coordinator {
 
     override func start() {
         let tabBarController = UITabBarController()
-
+        tabBarController.overrideUserInterfaceStyle = .dark
         let topicsNavigationController = UINavigationController()
         let topicsCoordinator = TopicsCoordinator(presenter: topicsNavigationController,
                                                   topicsDataManager: dataManager,

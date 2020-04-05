@@ -38,7 +38,7 @@ class UserDetailViewController: UIViewController {
         let labelUserIDTitle = UILabel()
         labelUserIDTitle.translatesAutoresizingMaskIntoConstraints = false
         labelUserIDTitle.text = NSLocalizedString("User ID: ", comment: "")
-        labelUserIDTitle.textColor = .black
+        labelUserIDTitle.textColor = .orange
 
         let userIDStackView = UIStackView(arrangedSubviews: [labelUserIDTitle, labelUserID])
         userIDStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -103,7 +103,6 @@ class UserDetailViewController: UIViewController {
     
     override func loadView() {
         view  = UIView()
-        view.backgroundColor = .white
         
         view.addSubview(userIDStackView)
         NSLayoutConstraint.activate([
@@ -132,7 +131,7 @@ class UserDetailViewController: UIViewController {
         ])
         
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        leftBarButtonItem.tintColor = .black
+        leftBarButtonItem.tintColor = .green
         navigationItem.leftBarButtonItem = leftBarButtonItem
         
     }
