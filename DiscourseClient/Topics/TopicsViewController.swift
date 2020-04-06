@@ -23,6 +23,8 @@ class TopicsViewController: UIViewController {
     }()
 
     let viewModel: TopicsViewModel
+    
+    var cellColors = ["#F28044","#F0A761","#FEC362","#F0BB4C","#E3CB92","#FEA375"]
 
     init(viewModel: TopicsViewModel) {
         self.viewModel = viewModel
@@ -35,7 +37,8 @@ class TopicsViewController: UIViewController {
 
     override func loadView() {
         view = UIView()
-
+        overrideUserInterfaceStyle = .light
+        tableView.backgroundColor = UIColor(hexString: "#FEC362")
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -78,6 +81,7 @@ extension TopicsViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "TopicCell", for: indexPath) as? TopicCell,
             let cellViewModel = viewModel.viewModel(at: indexPath) {
             cell.viewModel = cellViewModel
+            cell.contentView.backgroundColor = UIColor(hexString: cellColors[indexPath.row % cellColors.count])
             return cell
         }
 

@@ -24,6 +24,8 @@ class CategoriesViewController: UIViewController {
     }()
     
     let viewModel: CategoriesViewModel
+    
+    var cellColors = ["#F28044","#F0A761","#FEC362","#F0BB4C","#E3CB92","#FEA375"]
 
     init(viewModel: CategoriesViewModel) {
         self.viewModel = viewModel
@@ -37,7 +39,8 @@ class CategoriesViewController: UIViewController {
     override func loadView() {
         view = UIView()
         view.backgroundColor = .white
-
+        overrideUserInterfaceStyle = .light
+        tableView.backgroundColor = UIColor(hexString: "#FEC362")
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -71,6 +74,7 @@ extension CategoriesViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as? CategoryCell,
             let cellViewModel = viewModel.viewModel(at: indexPath) {
             cell.viewModel = cellViewModel
+            cell.contentView.backgroundColor = UIColor(hexString: cellColors[indexPath.row % cellColors.count])
             return cell
         }
 

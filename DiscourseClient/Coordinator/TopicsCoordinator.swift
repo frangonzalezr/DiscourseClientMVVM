@@ -62,12 +62,9 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
                 if (response?.details.can_delete ?? false) {
                     topicDetailViewController.rightBarButtonItem.isEnabled = true
                     topicDetailViewController.rightBarButtonItem.tintColor = .green
-                    print("PODEMOS BORRAR")
                     self.topicID = topic.id
                 } else {
-                    topicDetailViewController.rightBarButtonItem.isEnabled = true
-                    topicDetailViewController.rightBarButtonItem.tintColor = .red
-                    print("NO PODEMOS BORRAR")
+                    topicDetailViewController.rightBarButtonItem.isEnabled = false
                 }
                 break
             case .failure(let error):
@@ -76,8 +73,6 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
 
         }
 
-        
-        
         topicDetailViewModel.viewDelegate = topicDetailViewController
         topicDetailViewModel.coordinatorDelegate = self
         presenter.pushViewController(topicDetailViewController, animated: true)
@@ -124,24 +119,22 @@ extension TopicsCoordinator: TopicDetailCoordinatorDelegate {
     }
     
     func topicDetailDeleteButtonTapped() {
-
         topicDetailDataManager.deleteTopic(id: topicID ?? 0) { (result) in
             switch result {
             case .success(let response):
-                    print("BORRAMOS EL TOPIC POR EL ID")
-                    print(response ?? "NO HA DEVUELTO NADA, TRANQUILO")
                     let title = NSLocalizedString("Topic Successfully Marked for deletion" , comment:"")
-                    self.showAlert("", title)
+                    let message = NSLocalizedString("\(String(describing: response))" , comment:"")
+                    self.showAlert(message, title)
                     break
-                case .failure(let error):
-                    if case let SessionAPIError.apiError(finalAPIError) = error {
-                        let action = finalAPIError.action ?? "No action"
-                        let errors = finalAPIError.errors?.joined(separator: ", ") ?? "No error description"
-                        let title = NSLocalizedString("ERROR DELETING TOPIC" , comment:"")
-                        let message = NSLocalizedString("\(action) error: \(errors)" , comment:"")
-                        self.showAlert(message, title)
-                    }
+            case .failure(let error):
+                if case let SessionAPIError.apiError(finalAPIError) = error {
+                    let action = finalAPIError.action ?? "No action"
+                    let errors = finalAPIError.errors?.joined(separator: ", ") ?? "No error description"
+                    let title = NSLocalizedString("Error deleting Topic" , comment:"")
+                    let message = NSLocalizedString("\(action) error: \(errors)" , comment:"")
+                    self.showAlert(message, title)
                 }
+            }
         }
     }
 }

@@ -10,9 +10,10 @@ import UIKit
 
 /// ViewController para representar el listado de usuarios
 class UsersViewController: UIViewController {
-    
-    let viewModel: UsersViewModel
 
+    let viewModel: UsersViewModel
+    
+    var cellColors = ["#F28044","#F0A761","#FEC362","#F0BB4C","#E3CB92","#FEA375"]
     
     lazy var tableView: UITableView = {
            let table = UITableView(frame: .zero, style: .grouped)
@@ -38,8 +39,8 @@ class UsersViewController: UIViewController {
     
     override func loadView() {
         view = UIView()
-        view.backgroundColor = .white
-
+        overrideUserInterfaceStyle = .light
+        tableView.backgroundColor = UIColor(hexString: "#FEC362")
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -77,10 +78,10 @@ extension UsersViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath) as? UserCell,
             let cellViewModel = viewModel.viewModel(at: indexPath) {
             cell.viewModel = cellViewModel
+            cell.contentView.backgroundColor = UIColor(hexString: cellColors[indexPath.row % cellColors.count])
             cell.setNeedsLayout()
             return cell
         }
-
         fatalError()
     }
 }
@@ -101,3 +102,5 @@ extension UsersViewController: UsersViewDelegate {
         tableView.reloadData()
     }
 }
+
+
