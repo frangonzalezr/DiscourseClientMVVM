@@ -111,6 +111,7 @@
 		62A697A223E89BD600CCEA3E /* LatestTopicsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestTopicsRequest.swift; sourceTree = "<group>"; };
 		62A697A523E89C2200CCEA3E /* LatestTopicsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LatestTopicsResponse.swift; sourceTree = "<group>"; };
 		62A697A723E89E6700CCEA3E /* DiscourseClientLocalDataManagerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscourseClientLocalDataManagerImpl.swift; sourceTree = "<group>"; };
+		A1831BCD243B9B0C00F14AA3 /* DiscourseClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DiscourseClient.entitlements; sourceTree = "<group>"; };
 		A1BC535A243511D1003D677F /* ChangeUserNameRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameRequest.swift; sourceTree = "<group>"; };
 		A1BC535C24351492003D677F /* ChangeUserNameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameResponse.swift; sourceTree = "<group>"; };
 		A1C7776A2431EEA300EB431C /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
@@ -209,6 +210,7 @@
 		627DC5A723E5F580006D8615 /* DiscourseClient */ = {
 			isa = PBXGroup;
 			children = (
+				A1831BCD243B9B0C00F14AA3 /* DiscourseClient.entitlements */,
 				62015CC923EF19E600673EBB /* Extensions */,
 				627DC5C923E603A9006D8615 /* Model */,
 				627DC5C623E6036F006D8615 /* DataManager */,
@@ -612,15 +614,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DiscourseClient/DiscourseClient.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6PBG234246;
+				DEVELOPMENT_TEAM = 2TT6289TL7;
 				INFOPLIST_FILE = DiscourseClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.irakai.DiscourseClient;
+				PRODUCT_BUNDLE_IDENTIFIER = com.familyoptica.DiscourseClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -630,15 +636,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DiscourseClient/DiscourseClient.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6PBG234246;
+				DEVELOPMENT_TEAM = 2TT6289TL7;
 				INFOPLIST_FILE = DiscourseClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.irakai.DiscourseClient;
+				PRODUCT_BUNDLE_IDENTIFIER = com.familyoptica.DiscourseClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

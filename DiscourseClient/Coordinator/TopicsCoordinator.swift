@@ -105,9 +105,22 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
     }
 }
 
+
+
+
 extension TopicsCoordinator: TopicDetailCoordinatorDelegate {
+
     func topicDetailBackButtonTapped() {
         presenter.popViewController(animated: true)
+    }
+    
+    func showAlert(_ alertMessage: String,
+                               _ alertTitle: String = NSLocalizedString("Error", comment: ""),
+                               _ alertActionTitle: String = NSLocalizedString("OK", comment: "")) {
+
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: alertActionTitle, style: .default, handler: {(alert: UIAlertAction) in self.topicDetailBackButtonTapped()}))
+        presenter.present(alertController, animated: true, completion: nil)
     }
     
     func topicDetailDeleteButtonTapped() {
@@ -117,16 +130,18 @@ extension TopicsCoordinator: TopicDetailCoordinatorDelegate {
             case .success(let response):
                     print("BORRAMOS EL TOPIC POR EL ID")
                     print(response ?? "NO HA DEVUELTO NADA, TRANQUILO")
-                    // QUEDA SACAR UN ALERT
-                    
+                    let title = NSLocalizedString("Topic Successfully Marked for deletion" , comment:"")
+                    self.showAlert("", title)
                     break
                 case .failure(let error):
-                    // QUEDA SACAR UN ALERT
-                    print("EL ERROR ES: \(error)")
+                    if case let SessionAPIError.apiError(finalAPIError) = error {
+                        let action = finalAPIError.action ?? "No action"
+                        let errors = finalAPIError.errors?.joined(separator: ", ") ?? "No error description"
+                        let title = NSLocalizedString("ERROR DELETING TOPIC" , comment:"")
+                        let message = NSLocalizedString("\(action) error: \(errors)" , comment:"")
+                        self.showAlert(message, title)
+                    }
                 }
-                self.presenter.popViewController(animated: true)
         }
-        
-
     }
 }
