@@ -53,13 +53,13 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
         topicDetailViewController.title = NSLocalizedString("\(topic.title)", comment: "")
         topicDetailViewController.labelTopicID.text = "\(topic.id)"
         topicDetailViewController.labelTopicTitle.text = topic.title
-        topicDetailViewController.labelTopicCount.text = "\(topic.posts_count)"
+        topicDetailViewController.labelTopicCount.text = "\(topic.postsCount)"
         
         // PRIMERO HACEMOS UNA LLAMADA FETCH SINGLE TOPIC
         topicDetailDataManager.fetchTopic(id: topic.id) { (result) in
                         switch result {
             case .success(let response):
-                if (response?.details.can_delete ?? false) {
+                if (response?.details.canDelete ?? false) {
                     topicDetailViewController.rightBarButtonItem.isEnabled = true
                     topicDetailViewController.rightBarButtonItem.tintColor = .green
                     self.topicID = topic.id

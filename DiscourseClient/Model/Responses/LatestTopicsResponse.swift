@@ -21,38 +21,43 @@ struct List:Codable {
 struct Topic: Codable {
     let id: Int
     let title: String
-    let fancy_title: String
-    let slug: String
-    let posts_count: Int
-    let reply_count: Int
-    let highest_post_number: Int
-    let image_url: String?
-    let created_at: String
-    let last_posted_at: String
-    let bumped: Bool
-    let bumped_at: String
-    let unseen: Bool
-    let pinned: Bool
-    let unpinned: Int?
-    let excerpt: String?
-    let visible: Bool
-    let closed: Bool
-    let archived: Bool
-    let bookmarked: Bool?
-    let liked: Bool?
-    let views: Int
-    let like_count: Int
-    let has_summary: Bool
-    let archetype: String
-    let last_poster_username: String
-    let category_id: Int
-    let pinned_globally: Bool
-    let posters: [Poster]
+//    let fancy_title: String
+//    let slug: String
+    let postsCount: Int
+//    let reply_count: Int
+//    let highest_post_number: Int
+//    let image_url: String?
+//    let created_at: String
+//    let last_posted_at: String
+//    let bumped: Bool
+//    let bumped_at: String
+//    let unseen: Bool
+//    let pinned: Bool
+//    let unpinned: Int?
+//    let excerpt: String?
+//    let visible: Bool
+//    let closed: Bool
+//    let archived: Bool
+//    let bookmarked: Bool?
+//    let liked: Bool?
+//    let views: Int
+//    let like_count: Int
+//    let has_summary: Bool
+//    let archetype: String
+//    let last_poster_username: String
+//    let category_id: Int
+//    let pinned_globally: Bool
+//    let posters: [Poster]
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case title = "title"
+        case postsCount = "posts_count"
+    }
 }
 
-struct Poster: Codable {
-    let extras: String?
-    let description: String
-    let user_id: Int
-    let primary_group_id: Int?
-}
+//struct Poster: Codable {
+//    let extras: String?
+//    let description: String
+//    let user_id: Int
+//    let primary_group_id: Int?
+//}

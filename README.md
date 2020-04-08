@@ -21,3 +21,5 @@ que nunca había trabajado con esta arquitectura.
 	Modificación del nombre del usuario: Si se puede modificar el nombre se habilita el botón de Update que 
 	actualiza contra la API y refresca la tabla anterior, sin necesidad de volver a hacer una llamada nueva
 	simplemente refrescando la etiqueta de la tabla y el nombre cambiado en el array de usuarios.
+
+(He usado notación lowerCamelCase para los campos devueltos por la API con guión bajo)

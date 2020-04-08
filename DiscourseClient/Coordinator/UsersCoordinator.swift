@@ -28,14 +28,41 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
                     userChanging.user.name = newName
                     // Y AVISO AL VIEW MODEL DE QUE LO HEMOS CAMBIADO EN LA LLAMADA A LA API
                     // Y ASI NI SIQUIERA NECESITO VOLVER A HACER LA LLAMADA
+                    
+                    // AQUI PONGO UN ALERT AVISANDO DE QUE SE HA CAMBIADO CORRECTAMENTE
+                    
+                    let title = NSLocalizedString("User Name Successfully Changed" , comment:"")
+                    if let responseUnwrapped = response {
+                        let message = NSLocalizedString("The response was: \(responseUnwrapped.success)" , comment:"")
+                        self.showAlert(message, title)
+                    }
+
                     self.usersViewModel?.userNameChanged()
                 }
                 break
             case .failure(let error):
+                
+            // AQUI PONGO UN ALERT DE QUE HA HABIDO ALGUN ERROR
+                if case let SessionAPIError.apiError(finalAPIError) = error {
+                    let action = finalAPIError.action ?? "No action"
+                    let errors = finalAPIError.errors?.joined(separator: ", ") ?? "No error description"
+                    let title = NSLocalizedString("Error changing User name" , comment:"")
+                    let message = NSLocalizedString("\(action) error: \(errors)" , comment:"")
+                    self.showAlert(message, title)
+                }
                 print("EL ERROR DE CAMBIAR EL NOMBRE DEL USUARIO ES: \(error)")
             }
-            self.presenter.popViewController(animated: true)
+            //self.presenter.popViewController(animated: true)
         }
+    }
+    
+    func showAlert(_ alertMessage: String,
+                               _ alertTitle: String = NSLocalizedString("Error", comment: ""),
+                               _ alertActionTitle: String = NSLocalizedString("OK", comment: "")) {
+
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: alertActionTitle, style: .default, handler: {(alert: UIAlertAction) in self.userDetailBackButtonTapped()}))
+        presenter.present(alertController, animated: true, completion: nil)
     }
     
     func userDetailBackButtonTapped() {
@@ -75,7 +102,7 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
             switch result {
             case .success(let response):
                 print(response ?? "NO HAY RESPUESTA")
-                if ((response?.user.can_edit_name) != nil && response?.user.can_edit_name == true) {
+                if ((response?.user.canEditName) != nil && response?.user.canEditName == true) {
                     userDetailViewController.userNameStackView.isHidden = true
                     userDetailViewController.userNameEditStackView.isHidden = false
                     userDetailViewController.userNameButtonStackView.isHidden = false

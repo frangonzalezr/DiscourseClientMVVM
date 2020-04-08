@@ -27,9 +27,17 @@ struct Directory_Item: Codable {
     let user: User
 }
 
-struct User: Codable {
+class User: Codable {
     let id: Int
     let username: String
     var name: String?
-    let avatar_template: String
+    let avatarTemplate: String
+    let canEditName: Bool?
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case username = "username"
+        case name = "name"
+        case avatarTemplate = "avatar_template"
+        case canEditName = "can_edit_name"
+    }
 }

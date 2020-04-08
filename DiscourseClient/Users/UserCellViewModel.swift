@@ -20,6 +20,6 @@ class UserCellViewModel {
         self.textLabelText = user.name
         
         // ARREGLAR ESTA CHAPUZA
-        self.avatar_image = UIImage(data: try! Data(contentsOf: URL(string: apiURL + user.avatar_template.replacingOccurrences(of: "{size}", with: "100"))!))! // MUCHO ! ESTOY METIENDO AQUI
+        self.avatar_image = UIImage(data: try! Data(contentsOf: URL(string: apiURL + user.avatarTemplate.replacingOccurrences(of: "{size}", with: "100"))!))! // MUCHO ! ESTOY METIENDO AQUI
     }
 }
