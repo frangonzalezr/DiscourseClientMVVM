@@ -54,7 +54,6 @@
 		A1C777752431FCA000EB431C /* UsersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C777742431FCA000EB431C /* UsersRequest.swift */; };
 		A1C777772431FE4500EB431C /* UsersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C777762431FE4500EB431C /* UsersResponse.swift */; };
 		A1E0E68C242BA3E3005A557E /* DeleteTopicRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0E68B242BA3E3005A557E /* DeleteTopicRequest.swift */; };
-		A1E0E68E242BED41005A557E /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0E68D242BED41005A557E /* HTTPStatusCode.swift */; };
 		A1E0E690242D6047005A557E /* DeleteTopicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0E68F242D6047005A557E /* DeleteTopicResponse.swift */; };
 		A1E0E692242FF1AF005A557E /* UsersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0E691242FF1AF005A557E /* UsersCoordinator.swift */; };
 		A1E0E695242FF267005A557E /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E0E694242FF267005A557E /* UsersViewModel.swift */; };
@@ -122,7 +121,6 @@
 		A1C777742431FCA000EB431C /* UsersRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRequest.swift; sourceTree = "<group>"; };
 		A1C777762431FE4500EB431C /* UsersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersResponse.swift; sourceTree = "<group>"; };
 		A1E0E68B242BA3E3005A557E /* DeleteTopicRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTopicRequest.swift; sourceTree = "<group>"; };
-		A1E0E68D242BED41005A557E /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
 		A1E0E68F242D6047005A557E /* DeleteTopicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTopicResponse.swift; sourceTree = "<group>"; };
 		A1E0E691242FF1AF005A557E /* UsersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersCoordinator.swift; sourceTree = "<group>"; };
 		A1E0E694242FF267005A557E /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
@@ -316,7 +314,6 @@
 				62A697A523E89C2200CCEA3E /* LatestTopicsResponse.swift */,
 				62015CD323EF21A900673EBB /* AddNewTopicResponse.swift */,
 				62015CC723EF162D00673EBB /* SingleTopicResponse.swift */,
-				A1E0E68D242BED41005A557E /* HTTPStatusCode.swift */,
 				A1E0E68F242D6047005A557E /* DeleteTopicResponse.swift */,
 				A1E0E69A242FFAFF005A557E /* CategoriesResponse.swift */,
 				A1C777702431FA2F00EB431C /* SingleUserResponse.swift */,
@@ -465,7 +462,6 @@
 				A1E0E69D242FFC91005A557E /* CategoriesRequest.swift in Sources */,
 				A1E0E692242FF1AF005A557E /* UsersCoordinator.swift in Sources */,
 				A1E0E68C242BA3E3005A557E /* DeleteTopicRequest.swift in Sources */,
-				A1E0E68E242BED41005A557E /* HTTPStatusCode.swift in Sources */,
 				62A697A823E89E6700CCEA3E /* DiscourseClientLocalDataManagerImpl.swift in Sources */,
 				62015CD623EF21F600673EBB /* AddTopicDataManager.swift in Sources */,
 				627DC5D923E60727006D8615 /* APIRequest.swift in Sources */,

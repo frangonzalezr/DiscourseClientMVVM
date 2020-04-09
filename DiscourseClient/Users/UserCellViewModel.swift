@@ -18,8 +18,7 @@ class UserCellViewModel {
     init(user: User) {
         self.user = user
         self.textLabelText = user.name
-        
-        // ARREGLAR ESTA CHAPUZA
+        // ARREGLAR ESTA CHAPUZA PASANDOLA AL VIEW CONTROLLER
         self.avatar_image = UIImage(data: try! Data(contentsOf: URL(string: apiURL + user.avatarTemplate.replacingOccurrences(of: "{size}", with: "100"))!))! // MUCHO ! ESTOY METIENDO AQUI
     }
 }

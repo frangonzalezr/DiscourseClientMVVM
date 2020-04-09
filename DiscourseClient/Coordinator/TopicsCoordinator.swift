@@ -56,13 +56,13 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
         topicDetailViewController.labelTopicCount.text = "\(topic.postsCount)"
         
         // PRIMERO HACEMOS UNA LLAMADA FETCH SINGLE TOPIC
-        topicDetailDataManager.fetchTopic(id: topic.id) { (result) in
+        topicDetailDataManager.fetchTopic(id: topic.id) { [weak self] (result) in
                         switch result {
             case .success(let response):
                 if (response?.details.canDelete ?? false) {
                     topicDetailViewController.rightBarButtonItem.isEnabled = true
                     topicDetailViewController.rightBarButtonItem.tintColor = .green
-                    self.topicID = topic.id
+                    self?.topicID = topic.id
                 } else {
                     topicDetailViewController.rightBarButtonItem.isEnabled = false
                 }
@@ -119,12 +119,12 @@ extension TopicsCoordinator: TopicDetailCoordinatorDelegate {
     }
     
     func topicDetailDeleteButtonTapped() {
-        topicDetailDataManager.deleteTopic(id: topicID ?? 0) { (result) in
+        topicDetailDataManager.deleteTopic(id: topicID ?? 0) { [weak self] (result) in
             switch result {
             case .success(let response):
                     let title = NSLocalizedString("Topic Successfully Marked for deletion" , comment:"")
-                    let message = NSLocalizedString("\(String(describing: response))" , comment:"")
-                    self.showAlert(message, title)
+                    let message = NSLocalizedString("The response was: \(String(describing: response))" , comment:"")
+                    self?.showAlert(message, title)
                     break
             case .failure(let error):
                 if case let SessionAPIError.apiError(finalAPIError) = error {
@@ -132,7 +132,7 @@ extension TopicsCoordinator: TopicDetailCoordinatorDelegate {
                     let errors = finalAPIError.errors?.joined(separator: ", ") ?? "No error description"
                     let title = NSLocalizedString("Error deleting Topic" , comment:"")
                     let message = NSLocalizedString("\(action) error: \(errors)" , comment:"")
-                    self.showAlert(message, title)
+                    self?.showAlert(message, title)
                 }
             }
         }

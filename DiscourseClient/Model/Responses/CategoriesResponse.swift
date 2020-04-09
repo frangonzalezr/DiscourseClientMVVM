@@ -17,15 +17,9 @@ struct CategoriesResponse: Codable {
 }
 
 struct CategoryList: Codable {
-    let can_create_category: Bool
-    let can_create_topic: Bool
-    let draft: Bool?
-    let draft_key: String
-    let draft_sequence: Int
     let categories: [Category]
 }
 
 struct Category: Codable {
     let name: String
-    
 }

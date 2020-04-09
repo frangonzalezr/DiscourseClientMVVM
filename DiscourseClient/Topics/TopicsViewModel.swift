@@ -35,7 +35,7 @@ class TopicsViewModel {
         topicsDataManager.fetchAllTopics { result in
             switch result {
             case .success(let response):
-                if let topicsArray = response?.topic_list.topics {
+                if let topicsArray = response?.topicList.topics {
                     for topic in topicsArray {
                         self.topicViewModels.append(TopicCellViewModel(topic: topic))
                     }

@@ -16,12 +16,12 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
         userSelected?.name = newName
         
         // ARREGLAR ESTA CHAPUZA
-        userDetailDataManager.changeUserName(user: userSelected!) { (result) in
+        userDetailDataManager.changeUserName(user: userSelected!) { [weak self] (result) in
             switch result {
             case .success(let response):
                 print(response ?? "NO HA DEVUELTO NADA, TRANQUILO")
                 // PERO TAMBIEN TENEMOS QUE CAMBIARLO EN EL ARRAY DE DONDE VIENE
-                if let userChanging = self.usersViewModel?.userViewModels.first(where: {$0.user.id == self.userSelected?.id}){
+                if let userChanging = self?.usersViewModel?.userViewModels.first(where: {$0.user.id == self?.userSelected?.id}){
                     // CAMBIO LA ETIQUETA DEL USUARIO EN LA TABLA ANTES DE VOLVER
                     userChanging.textLabelText = newName
                     // Y TAMBIEN EL NOMBRE DEL USUARIO EN EL ARRAY
@@ -34,10 +34,10 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
                     let title = NSLocalizedString("User Name Successfully Changed" , comment:"")
                     if let responseUnwrapped = response {
                         let message = NSLocalizedString("The response was: \(responseUnwrapped.success)" , comment:"")
-                        self.showAlert(message, title)
+                        self?.showAlert(message, title)
                     }
 
-                    self.usersViewModel?.userNameChanged()
+                    self?.usersViewModel?.userNameChanged()
                 }
                 break
             case .failure(let error):
@@ -48,7 +48,7 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
                     let errors = finalAPIError.errors?.joined(separator: ", ") ?? "No error description"
                     let title = NSLocalizedString("Error changing User name" , comment:"")
                     let message = NSLocalizedString("\(action) error: \(errors)" , comment:"")
-                    self.showAlert(message, title)
+                    self?.showAlert(message, title)
                 }
                 print("EL ERROR DE CAMBIAR EL NOMBRE DEL USUARIO ES: \(error)")
             }
