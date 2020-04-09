@@ -55,7 +55,6 @@ class UsersViewController: UIViewController {
         viewModel.viewWasLoaded()
     }
     override func viewDidAppear(_ animated: Bool) {
-        // RECARGO PARA QUE SE ACTUALICEN LOS DATOS CUANDO HE CAMBIADO EL NOMBRE. ESTO HAY QUE HACERLO MAS LIMPIO, SIN RECARGAR?
         tableView.reloadData()
     }
     

@@ -9,21 +9,26 @@
 import UIKit
 
 class UserDetailViewController: UIViewController {
+  
+    var avatarPath: String
     
     lazy var labelUserID: UILabel = {
         let label = UILabel()
+        label.backgroundColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     lazy var labelUserName: UILabel = {
         let label = UILabel()
+        label.backgroundColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var textUserName: UITextField = {
         let textField = UITextField()
+        textField.backgroundColor = .darkGray
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -39,6 +44,7 @@ class UserDetailViewController: UIViewController {
         labelUserIDTitle.translatesAutoresizingMaskIntoConstraints = false
         labelUserIDTitle.text = NSLocalizedString("User ID: ", comment: "")
         labelUserIDTitle.textColor = .orange
+        labelUserIDTitle.backgroundColor = .gray
 
         let userIDStackView = UIStackView(arrangedSubviews: [labelUserIDTitle, labelUserID])
         userIDStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +58,7 @@ class UserDetailViewController: UIViewController {
         labelUserNameTitle.translatesAutoresizingMaskIntoConstraints = false
         labelUserNameTitle.text = NSLocalizedString("User Name: ", comment: "")
         labelUserNameTitle.textColor = .red
+        labelUserNameTitle.backgroundColor = .gray
 
         let userNameStackView = UIStackView(arrangedSubviews: [labelUserNameTitle, labelUserName])
         userNameStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +72,7 @@ class UserDetailViewController: UIViewController {
         labelUserEditNameTitle.translatesAutoresizingMaskIntoConstraints = false
         labelUserEditNameTitle.text = NSLocalizedString("User Name: ", comment: "")
         labelUserEditNameTitle.textColor = .green
+        labelUserEditNameTitle.backgroundColor = .gray
 
         let userNameEditStackView = UIStackView(arrangedSubviews: [labelUserEditNameTitle, textUserName])
         userNameEditStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,6 +86,7 @@ class UserDetailViewController: UIViewController {
         userNameButton.translatesAutoresizingMaskIntoConstraints = false
         userNameButton.setTitle(NSLocalizedString("Update Name", comment: ""), for: .normal)
         userNameButton.setTitleColor(.green, for: .normal)
+        userNameButton.backgroundColor = .darkGray
         userNameButton.addTarget(self, action: #selector(updateButtonTapped(sender:)), for: .touchUpInside)
 
         let userNameButtonStackView = UIStackView(arrangedSubviews: [userNameButton, buttonUserName])
@@ -92,8 +101,9 @@ class UserDetailViewController: UIViewController {
     
     let viewModel: UserDetailViewModel
     
-    init(viewModel: UserDetailViewModel) {
+    init(viewModel: UserDetailViewModel, avatarPath: String) {
         self.viewModel = viewModel
+        self.avatarPath = avatarPath
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -114,7 +124,7 @@ class UserDetailViewController: UIViewController {
         view.addSubview(userNameStackView)
         NSLayoutConstraint.activate([
             userNameStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            userNameStackView.topAnchor.constraint(equalTo: userIDStackView.topAnchor, constant: 16)
+            userNameStackView.topAnchor.constraint(equalTo: userIDStackView.topAnchor, constant: 16),
         ])
         
         view.addSubview(userNameEditStackView)
@@ -127,7 +137,7 @@ class UserDetailViewController: UIViewController {
         NSLayoutConstraint.activate([
             userNameButtonStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             userNameButtonStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            userNameButtonStackView.topAnchor.constraint(equalTo: userNameEditStackView.topAnchor, constant: 16)
+            userNameButtonStackView.topAnchor.constraint(equalTo: userNameEditStackView.topAnchor, constant: 64)
         ])
         
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(backButtonTapped))
@@ -139,6 +149,15 @@ class UserDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.viewDidLoad()
+        // HACEMOS LA TONTERIA DE CARGAR LA IMAGEN DE FONDO
+        DispatchQueue.global(qos:.userInitiated).async {
+            let urlString = apiURL + (((self.avatarPath.replacingOccurrences(of: "{size}", with: "400"))))
+        guard let data = try? Data(contentsOf: URL(string: urlString)!) else { return }
+        let image = UIImage(data: data)
+        DispatchQueue.main.async {
+        self.view.backgroundColor = UIColor(patternImage: image!).withAlphaComponent(0.3)
+            }
+        }
     }
     
     @objc func backButtonTapped() {

@@ -3,7 +3,8 @@
 He seguido el modelo MVVM satisfaciendo los TODO que he etiquetado como DONE porque me parecía una plantilla muy interesante para mí
 que nunca había trabajado con esta arquitectura.
 
-(He añadido algo de maquillaje en plan recreativo para multicolorear el fondo de las celdas alternatívamente)
+(Por aprovechar la práctica como banco de pruebas, he añadido algo de maquillaje en plan recreativo 
+para multicolorear el fondo de las celdas alternatívamente. También he utilizado la imagen del avatar en el detalle)
 
 1.- Se muestra en una tabla el listado "Latest Topics"
 

@@ -15,7 +15,6 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
         // CAMBIAMOS name EN EL OBJETO DEL USUARIO SELECCIONADO
         userSelected?.name = newName
         
-        // ARREGLAR ESTA CHAPUZA
         userDetailDataManager.changeUserName(user: userSelected!) { [weak self] (result) in
             switch result {
             case .success(let response):
@@ -26,22 +25,18 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
                     userChanging.textLabelText = newName
                     // Y TAMBIEN EL NOMBRE DEL USUARIO EN EL ARRAY
                     userChanging.user.name = newName
-                    // Y AVISO AL VIEW MODEL DE QUE LO HEMOS CAMBIADO EN LA LLAMADA A LA API
-                    // Y ASI NI SIQUIERA NECESITO VOLVER A HACER LA LLAMADA
-                    
                     // AQUI PONGO UN ALERT AVISANDO DE QUE SE HA CAMBIADO CORRECTAMENTE
-                    
                     let title = NSLocalizedString("User Name Successfully Changed" , comment:"")
                     if let responseUnwrapped = response {
                         let message = NSLocalizedString("The response was: \(responseUnwrapped.success)" , comment:"")
                         self?.showAlert(message, title)
                     }
-
+                    // Y AVISO AL VIEW MODEL DE QUE LO HEMOS CAMBIADO EN LA LLAMADA A LA API
+                    // Y ASI NI SIQUIERA NECESITO VOLVER A HACER LA LLAMADA
                     self?.usersViewModel?.userNameChanged()
                 }
                 break
             case .failure(let error):
-                
             // AQUI PONGO UN ALERT DE QUE HA HABIDO ALGUN ERROR
                 if case let SessionAPIError.apiError(finalAPIError) = error {
                     let action = finalAPIError.action ?? "No action"
@@ -90,14 +85,16 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
          Finalmente, lanzar el TopicDetailViewController sobre el presenter.
          */
         let userDetailViewModel = UserDetailViewModel(userID: user.id, canEditName: true, userDetailDataManager: userDetailDataManager)
-        let userDetailViewController = UserDetailViewController(viewModel: userDetailViewModel)
+        let userDetailViewController = UserDetailViewController(viewModel: userDetailViewModel, avatarPath: "")
         userSelected = user
         userDetailViewController.title = NSLocalizedString("\(user.username)", comment: "")
         print("SELECCIONAMOS EL USER \(user.username)")
         userDetailViewController.labelUserID.text = "\(user.id)"
         userDetailViewController.labelUserName.text = "\(user.name ?? "")"
         userDetailViewController.textUserName.text = "\(user.name ?? "")"
-            //PRIMERO HACEMOS UNA LLAMADA FETCH SINGLE USER
+        // VAMOS A HACER AQUI LA TONTERIA DE METER LA IMAGEN DE FONDO
+        userDetailViewController.avatarPath = user.avatarTemplate
+        // AHORA EN FUNCION DE SI PODEMOS EDITAR O NO EL NOMBRE PINTAMOS O NO EL BOTON
         userDetailDataManager.fetchUser(user: user) { (result) in
             switch result {
             case .success(let response):
