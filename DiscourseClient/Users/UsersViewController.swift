@@ -79,7 +79,16 @@ extension UsersViewController: UITableViewDataSource {
             let cellViewModel = viewModel.viewModel(at: indexPath) {
             cell.viewModel = cellViewModel
             cell.contentView.backgroundColor = UIColor(hexString: cellColors[indexPath.row % cellColors.count])
-            cell.setNeedsLayout()
+            DispatchQueue.global(qos:.userInitiated).async {
+                guard let avatarPath = cell.viewModel?.user.avatarTemplate else { return }
+                let urlString = apiURL + (((avatarPath.replacingOccurrences(of: "{size}", with: "100"))))
+                guard let data = try? Data(contentsOf: URL(string: urlString)!) else { return }
+                let image = UIImage(data: data)
+                    DispatchQueue.main.async {
+                        cell.imageView?.image = image
+                        cell.setNeedsLayout()
+                    }
+                }
             return cell
         }
         fatalError()

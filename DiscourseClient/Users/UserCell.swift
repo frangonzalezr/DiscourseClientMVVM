@@ -13,7 +13,6 @@ class UserCell: UITableViewCell {
         didSet {
             guard let viewModel = viewModel else { return }
             textLabel?.text = viewModel.textLabelText
-            imageView?.image = viewModel.avatar_image
         }
     }
     
