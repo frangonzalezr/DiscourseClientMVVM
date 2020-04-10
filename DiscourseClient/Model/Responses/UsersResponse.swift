@@ -9,10 +9,14 @@
 import Foundation
 
 struct UsersResponse: Codable {
-    let directory_items: [Directory_Item]
-}
+    let directoryItems: [DirectoryItem]
+      enum CodingKeys: String, CodingKey {
+        case directoryItems = "directory_items"
+      }
+    }
 
-struct Directory_Item: Codable {
+
+struct DirectoryItem: Codable {
     let user: User
 }
 

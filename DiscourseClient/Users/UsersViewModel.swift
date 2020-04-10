@@ -40,7 +40,7 @@ class UsersViewModel {
         usersDataManager.fetchAllUsers{ result in
             switch result {
             case .success(let response):
-                if let itemsArray = response?.directory_items {
+                if let itemsArray = response?.directoryItems {
                     for item in itemsArray {
                         self.userViewModels.append(UserCellViewModel(user: item.user))
                     }

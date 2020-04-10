@@ -7,48 +7,97 @@ struct AddNewTopicResponse: Codable {
     let id: Int
     let name: String
     let username: String
-    let avatar_template: String
-    let created_at: String
+    let avatarTemplate: String
+    let createdAt: String
     let cooked: String
-    let post_number: Int
-    let post_type: Int
-    let updated_at: String
-    let reply_count: Int
-    let reply_to_post_number: String?
-    let quote_count: Int
-    let incoming_link_count: Int
+    let postNumber: Int
+    let postType: Int
+    let updatedAt: String
+    let replyCount: Int
+    let replyToPostNumber: String?
+    let quoteCount: Int
+    let incomingLinkCount: Int
     let reads: Int
     let score: Int
     let yours: Bool
-    let topic_id: Int
-    let topic_slug: String
-    let display_username: String
-    let primary_group_name: String?
-    let primary_group_flair_url: String?
-    let primary_group_flair_bg_color: String?
-    let primary_group_flair_color: String?
+    let topicId: Int
+    let topicSlug: String
+    let displayUsername: String
+    let primaryGroupName: String?
+    let primaryGroupFlairUrl: String?
+    let primaryGroupFlairBgColor: String?
+    let primaryGroupFlairColor: String?
     let version: Int
-    let can_edit: Bool
-    let can_delete: Bool
-    let can_recover: Bool
-    let can_wiki: Bool
-    let user_title: String?
-    let actions_summary: [actions]
+    let canEdit: Bool
+    let canDelete: Bool
+    let canRecover: Bool
+    let canWiki: Bool
+    let userTitle: String?
+    let actionsSummary: [actions]
     let moderator: Bool
     let admin: Bool
     let staff: Bool
-    let user_id: Int
-    let draft_sequence: Int
+    let userId: Int
+    let draftSequence: Int
     let hidden: Bool
-    let trust_level: Int
-    let deleted_at: String?
-    let user_deleted: Bool
-    let edit_reason: String?
-    let can_view_edit_history: Bool
+    let trustLevel: Int
+    let deletedAt: String?
+    let userDeleted: Bool
+    let editReason: String?
+    let canViewEditHistory: Bool
     let wiki: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case username
+        case avatarTemplate = "avatar_template"
+        case createdAt = "created_at"
+        case cooked
+        case postNumber = "post_number"
+        case postType = "post_type"
+        case updatedAt = "updated_at"
+        case replyCount = "reply_count"
+        case replyToPostNumber = "reply_to_post_number"
+        case quoteCount = "quote_count"
+        case incomingLinkCount = "incoming_link_count"
+        case reads
+        case score
+        case yours
+        case topicId = "topic_id"
+        case topicSlug = "topic_slug"
+        case displayUsername = "display_username"
+        case primaryGroupName = "primary_group_name"
+        case primaryGroupFlairUrl = "primary_group_flair_url"
+        case primaryGroupFlairBgColor = "primary_group_flair_bg_color"
+        case primaryGroupFlairColor = "primary_group_flair_color"
+        case version
+        case canEdit = "can_edit"
+        case canDelete = "can_delete"
+        case canRecover = "can_recover"
+        case canWiki = "can_wiki"
+        case userTitle = "user_title"
+        case actionsSummary = "actions_summary"
+        case moderator
+        case admin
+        case staff
+        case userId = "user_id"
+        case draftSequence = "draft_sequence"
+        case hidden
+        case trustLevel = "trust_level"
+        case deletedAt = "deleted_at"
+        case userDeleted = "user_deleted"
+        case editReason = "edit_reason"
+        case canViewEditHistory = "can_view_edit_history"
+        case wiki
+    }
 }
 
 struct actions: Codable {
     let id: Int
-    let can_act: Bool
+    let canAct: Bool
+    enum CodingKeys: String, CodingKey {
+        case id
+        case canAct = "can_act"
+    }
 }
