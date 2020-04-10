@@ -32,19 +32,23 @@ class TopicsViewModel {
     }
 
     func fetchTopicList() {
-        topicsDataManager.fetchAllTopics { result in
+        DispatchQueue.global(qos:.userInitiated).async { [weak self] in
+            self?.topicsDataManager.fetchAllTopics { result in
             switch result {
             case .success(let response):
                 if let topicsArray = response?.topicList.topics {
                     for topic in topicsArray {
-                        self.topicViewModels.append(TopicCellViewModel(topic: topic))
+                        self?.topicViewModels.append(TopicCellViewModel(topic: topic))
                     }
                 }
-                self.viewDelegate?.topicsFetched()
+                DispatchQueue.main.async {
+                self?.viewDelegate?.topicsFetched()
+                }
                 break
             case .failure(let error):
                 print(error)
             }
+        }
         }
     }
     

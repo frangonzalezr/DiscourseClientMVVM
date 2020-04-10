@@ -84,7 +84,6 @@ extension TopicsViewController: UITableViewDataSource {
             cell.contentView.backgroundColor = UIColor(hexString: cellColors[indexPath.row % cellColors.count])
             return cell
         }
-
         fatalError()
     }
 }

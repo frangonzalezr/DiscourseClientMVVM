@@ -32,22 +32,24 @@ class CategoriesViewModel {
     
 
     func viewWasLoaded() {
-
-        categoriesDataManager.fetchAllCategories { result in
-            switch result {
-            case .success(let response):
-                if let categoriesArray = response?.categoryList.categories {
-                    for category in categoriesArray {
-                        self.categoryViewModels.append(CategoryCellViewModel(category: category))
+        DispatchQueue.global(qos:.userInitiated).async { [weak self] in
+                self?.categoriesDataManager.fetchAllCategories { result in
+                switch result {
+                case .success(let response):
+                    if let categoriesArray = response?.categoryList.categories {
+                        for category in categoriesArray {
+                            self?.categoryViewModels.append(CategoryCellViewModel(category: category))
+                        }
                     }
+                    DispatchQueue.main.async {
+                        self?.viewDelegate?.categoriesFetched()
+                    }
+                    break
+                case .failure(let error):
+                    print(error)
                 }
-                self.viewDelegate?.categoriesFetched()
-                break
-            case .failure(let error):
-                print(error)
             }
         }
-        
     }
     
     func numberOfSections() -> Int {

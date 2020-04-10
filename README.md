@@ -4,7 +4,7 @@ He seguido el modelo MVVM satisfaciendo los TODO que he etiquetado como DONE por
 que nunca había trabajado con esta arquitectura.
 
 (Por aprovechar la práctica como banco de pruebas, he añadido algo de maquillaje en plan recreativo 
-para multicolorear el fondo de las celdas alternatívamente. También he utilizado la imagen del avatar en el detalle)
+para multicolorear el fondo de las celdas alternatívamente. También he utilizado la imagen del avatar como fondo de la vista en el detalle)
 
 1.- Se muestra en una tabla el listado "Latest Topics"
 

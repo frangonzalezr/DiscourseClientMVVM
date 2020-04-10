@@ -54,9 +54,9 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
         topicDetailViewController.labelTopicID.text = "\(topic.id)"
         topicDetailViewController.labelTopicTitle.text = topic.title
         topicDetailViewController.labelTopicCount.text = "\(topic.postsCount)"
-        
-        // PRIMERO HACEMOS UNA LLAMADA FETCH SINGLE TOPIC
-        topicDetailDataManager.fetchTopic(id: topic.id) { [weak self] (result) in
+        DispatchQueue.global(qos:.userInitiated).async { [weak self] in
+        // VAMOS HACIENDO UNA LLAMADA FETCH SINGLE TOPIC
+            self?.topicDetailDataManager.fetchTopic(id: topic.id) { [weak self] (result) in
                         switch result {
             case .success(let response):
                 if (response?.details.canDelete ?? false) {
@@ -72,12 +72,14 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
             }
 
         }
-
-        topicDetailViewModel.viewDelegate = topicDetailViewController
-        topicDetailViewModel.coordinatorDelegate = self
-        presenter.pushViewController(topicDetailViewController, animated: true)
+            topicDetailViewModel.viewDelegate = topicDetailViewController
+            topicDetailViewModel.coordinatorDelegate = self
+            // Y MIENTRAS PRESENTAMOS EL DETALLE
+            DispatchQueue.main.async {
+            self?.presenter.pushViewController(topicDetailViewController, animated: true)
+            }
+        }
     }
-
     func topicsPlusButtonTapped() {
         let addTopicCoordinator = AddTopicCoordinator(presenter: presenter, addTopicDataManager: addTopicDataManager)
         addChildCoordinator(addTopicCoordinator)
