@@ -32,6 +32,9 @@ class CategoriesViewModel {
     
 
     func viewWasLoaded() {
+        /*
+         No hace falta llamar desde global queue, como hemos dicho antes.
+         */
         DispatchQueue.global(qos:.userInitiated).async { [weak self] in
                 self?.categoriesDataManager.fetchAllCategories { result in
                 switch result {
@@ -41,6 +44,7 @@ class CategoriesViewModel {
                             self?.categoryViewModels.append(CategoryCellViewModel(category: category))
                         }
                     }
+                    // La respuesta ya viene en main.async, por tanto tampoco hace falta volver a hacerlo.
                     DispatchQueue.main.async {
                         self?.viewDelegate?.categoriesFetched()
                     }

@@ -74,6 +74,9 @@ extension CategoriesViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as? CategoryCell,
             let cellViewModel = viewModel.viewModel(at: indexPath) {
             cell.viewModel = cellViewModel
+            /*
+             ¡Muy chulo lo de los colores! 😄
+             */
             cell.contentView.backgroundColor = UIColor(hexString: cellColors[indexPath.row % cellColors.count])
             return cell
         }

@@ -32,6 +32,10 @@ class TopicsViewModel {
     }
 
     func fetchTopicList() {
+        /*
+         No necesitamos lanzar esto dentro de la global queue, puesto que la propia DataTask se ejecuta en una cola que no es la main.
+         No está mal ponerlo, pero realmente sobraría.
+         */
         DispatchQueue.global(qos:.userInitiated).async { [weak self] in
             self?.topicsDataManager.fetchAllTopics { result in
             switch result {
@@ -41,6 +45,10 @@ class TopicsViewModel {
                         self?.topicViewModels.append(TopicCellViewModel(topic: topic))
                     }
                 }
+                /*
+                 Tampoco haría falta llamar aquí en main.async, puesto que si te fijas, en en SesionAPI, cada vez que volvemos con el completion,
+                 lo hacemos dentro de un main.async. Por tanto lo estamos haciendo dos veces. Lo mismo que arriba: no está mal, pero sobra.
+                 */
                 DispatchQueue.main.async {
                 self?.viewDelegate?.topicsFetched()
                 }

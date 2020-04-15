@@ -78,6 +78,9 @@ extension UsersViewController: UITableViewDataSource {
             let cellViewModel = viewModel.viewModel(at: indexPath) {
             cell.viewModel = cellViewModel
             cell.contentView.backgroundColor = UIColor(hexString: cellColors[indexPath.row % cellColors.count])
+            /*
+             Esta lógica va mejor en el UserCellViewModel
+             */
             DispatchQueue.global(qos:.userInitiated).async {
                 guard let avatarPath = cell.viewModel?.user.avatarTemplate else { return }
                 let urlString = apiURL + (((avatarPath.replacingOccurrences(of: "{size}", with: "100"))))
