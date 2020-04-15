@@ -14,7 +14,12 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
     func userDetailEditButtonTapped(newName: String) {
         // CAMBIAMOS name EN EL OBJETO DEL USUARIO SELECCIONADO
         userSelected?.name = newName
-        
+
+        /*
+         Lo mismo que te comento en el otro coordinator, esto no está mal, pero hubiese hecho la llamada desde el ViewModel,
+         para poder reutilizar el módulo desde otras partes de la app sin tener que llevarte el coordinator contigo.
+        ¡Bien optimizado el no tener que volver a hacer el fetch de usuarios!
+         */
         userDetailDataManager.changeUserName(user: userSelected!) { [weak self] (result) in
             switch result {
             case .success(let response):
@@ -77,6 +82,11 @@ class UsersCoordinator: Coordinator, UserDetailCoordinatorDelegate, UsersCoordin
     }
 
     func didSelect(user: User) {
+
+        /*
+         Lo mismo que te he comentado en el otro coordinator. El ViewController se configura con su ViewModel. Sólo aspectos de navegación
+         de pantallas deberían ir en el coordinator.
+         */
         
         /** DONE: Lanzar módulo TopicDetail
          Para ello tendrás que crear TopicDetailViewModel, TopicDetailViewController.

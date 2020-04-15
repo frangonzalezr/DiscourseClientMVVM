@@ -48,6 +48,17 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
          Asignar el VC al viewDelegate del VM. De esta forma, el VC se enterará de lo necesario para pintar la UI
          Finalmente, lanzar el TopicDetailViewController sobre el presenter.
          */
+        /*
+         Yo no pondría estas asignaciones al viewController desde el Coordinator.
+         El TopicDetailViewController tiene que pintarse con lo que el ViewModel le pase. Acuérdate:
+         el ViewModel es la representación de lo que se ve en el ViewController. Es decir, si el ViewController tiene dos labels,
+         el ViewModel tendrá dos Strings que representen esos Labels.
+         */
+        /*
+         Respecto a las llamadas de red. No hace falta hacerlas con global queue, pues DataTask ya se supone que lo hace.
+         Aunque no está mal hecho, tampoco las pondría en este caso en el Coordinator. Ten en cuenta que si si quieres reutilizar
+         este módulo en otras partes de la app, o incluso en orta app, tendrás que llevarte también su coordinator para que funcione todo...
+         */
         let topicDetailViewModel = TopicDetailViewModel(topicID: topic.id, topicDetailDataManager: topicDetailDataManager)
         let topicDetailViewController = TopicDetailViewController(viewModel: topicDetailViewModel)
         topicDetailViewController.title = NSLocalizedString("\(topic.title)", comment: "")
@@ -55,28 +66,28 @@ extension TopicsCoordinator: TopicsCoordinatorDelegate {
         topicDetailViewController.labelTopicTitle.text = topic.title
         topicDetailViewController.labelTopicCount.text = "\(topic.postsCount)"
         DispatchQueue.global(qos:.userInitiated).async { [weak self] in
-        // VAMOS HACIENDO UNA LLAMADA FETCH SINGLE TOPIC
+            // VAMOS HACIENDO UNA LLAMADA FETCH SINGLE TOPIC
             self?.topicDetailDataManager.fetchTopic(id: topic.id) { [weak self] (result) in
-                        switch result {
-            case .success(let response):
-                if (response?.details.canDelete ?? false) {
-                    topicDetailViewController.rightBarButtonItem.isEnabled = true
-                    topicDetailViewController.rightBarButtonItem.tintColor = .green
-                    self?.topicID = topic.id
-                } else {
-                    topicDetailViewController.rightBarButtonItem.isEnabled = false
+                switch result {
+                case .success(let response):
+                    if (response?.details.canDelete ?? false) {
+                        topicDetailViewController.rightBarButtonItem.isEnabled = true
+                        topicDetailViewController.rightBarButtonItem.tintColor = .green
+                        self?.topicID = topic.id
+                    } else {
+                        topicDetailViewController.rightBarButtonItem.isEnabled = false
+                    }
+                    break
+                case .failure(let error):
+                    print(error)
                 }
-                break
-            case .failure(let error):
-                print(error)
-            }
 
-        }
+            }
             topicDetailViewModel.viewDelegate = topicDetailViewController
             topicDetailViewModel.coordinatorDelegate = self
             // Y MIENTRAS PRESENTAMOS EL DETALLE
             DispatchQueue.main.async {
-            self?.presenter.pushViewController(topicDetailViewController, animated: true)
+                self?.presenter.pushViewController(topicDetailViewController, animated: true)
             }
         }
     }
